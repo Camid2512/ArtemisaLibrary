@@ -1,22 +1,31 @@
 package co.edu.unbosque.model;
 
-public class UserDTO {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "libraryadmin")
+public class Admin {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;
+
+	@Column(name = "password", nullable = false)
 	private String password;
+
+	@Column(name = "email", nullable = false)
 	private String email;
 
-	public UserDTO() {
+	public Admin() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public UserDTO(long id, String username, String password, String email) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.email = email;
 	}
 
 	public long getId() {
