@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<h:head>
+	<script src="https://kit.fontawesome.com/8e9e769e03.js"></script>
+	<h:link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"></h:link>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<title>Login</title>
+
+
+
+</h:head>
+<h:body>
+
+
+
+	<div class="container">
+		<div class="backbox">
+			<div class="loginMsg">
+				<div class="textcontent">
+					<p class="title">Don't have an account?</p>
+					<p>Sign up to access to this library.</p>
+					<button id="switch1">Sign Up</button>
+				</div>
+			</div>
+			<div class="signupMsg visibility">
+				<div class="textcontent">
+					<p class="title">Have an account?</p>
+					<p>Log in to access to this library.</p>
+					<a><button id="switch2">LOG IN</button></a>
+				</div>
+			</div>
+		</div>
+		<!-- backbox -->
+
+		<div class="frontbox">
+			<div class="login">
+				<h2>LOG IN</h2>
+				<div class="inputbox">
+					<input type="text" name="username" placeholder="  USERNAME"></input>
+					<input type="password" name="password" placeholder="  PASSWORD"></input>
+				</div>
+
+				<a href='bibliotecartemisaAdmin.xhtml'><button>LOG IN</button></a>
+			</div>
+
+			<div class="signup hide">
+				<h2>SIGN UP</h2>
+				<div class="inputbox">
+					<input type="text" name="username" placeholder="  USERNAME"></input>
+					<input type="text" name="email" placeholder="  EMAIL"></input> <input
+						type="password" name="password" placeholder="  PASSWORD"></input>
+				</div>
+				<a href='bibliotecartemisa.xhtml'><button>SIGN UP</button></a>
+			</div>
+
+		</div>
+		<!-- frontbox -->
+	</div>
+
+	<script src="js/scriptinicio.js"></script>
+
+</h:body>
+</html>

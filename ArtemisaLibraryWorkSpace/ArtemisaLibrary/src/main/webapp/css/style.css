@@ -1,0 +1,554 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap');
+body {
+	  
+	background-color: #d4c098;
+}
+
+.container{
+  /*border:1px solid white;*/
+  width: 600px;
+  height: 350px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex; 
+}
+.backbox{  
+  background-color: #404040;
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  transform: translate(0,-50%);
+  top:50%;
+  display: inline-flex;
+}
+
+.frontbox{
+  background-color: white;
+  border-radius: 20px;
+  height: 100%;
+  width: 50%;
+  z-index: 10;
+  position: absolute;
+  right:0;
+  margin-right: 3%;
+  margin-left: 3%;
+  transition: right .8s ease-in-out;
+}
+
+.moving{
+  right:45%;
+}
+
+.loginMsg, .signupMsg{
+  width: 50%;
+  height: 100%;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.loginMsg .title,
+.signupMsg .title{
+  font-weight: 300;
+  font-size: 23px;
+}
+
+.loginMsg p,
+.signupMsg p {
+  font-weight: 100;
+}
+
+.textcontent{
+  color:white;
+  margin-top:65px;
+  margin-left: 12%;
+}
+
+.loginMsg button,
+.signupMsg button {
+  background-color: #404040;
+  border: 2px solid white;
+  border-radius: 10px;
+  color:white;
+  font-size: 12px;
+  box-sizing: content-box;
+  font-weight: 300;
+  padding:10px;
+  margin-top: 20px;
+}
+
+/* front box content*/
+.login, .signup{
+  padding: 20px;
+  text-align: center;
+}
+
+.login h2,
+.signup h2 {
+  color: #35B729;
+  font-size:22px;
+}
+
+.inputbox{
+  margin-top:30px; 
+}
+.login input, 
+.signup input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  background-color: #f2f2f2;
+  border: none;
+  margin-bottom:20px;
+  font-size: 12px;
+}
+
+.login button,
+.signup button{
+  background-color: #35B729;
+  border: none;
+  color:white;
+  font-size: 12px;
+  font-weight: 300;
+  box-sizing: content-box;
+  padding:10px;
+  border-radius: 10px;
+  width: 60px;
+  position: absolute;
+  right:30px;
+  bottom: 30px;
+  cursor: pointer;
+}
+
+/* Fade In & Out*/
+.login p {
+  cursor: pointer;
+  color:#404040;
+  font-size:15px;
+}
+
+.loginMsg, .signupMsg{
+  /*opacity: 1;*/
+  transition: opacity .8s ease-in-out;
+}
+
+.visibility{
+  opacity: 0;
+}
+
+.hide{
+  display: none;
+}
+ 
+
+
+#seccionContacto {
+    background-color: #f6f6e2;
+    padding: 100px;
+  text-align: right;
+}
+
+#carouselExample {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 20px auto;
+    z-index: -1; /* Coloca el carrusel detrás del contenido */
+}
+
+#carrousel {
+    max-width: 200px;
+    margin: 20px auto;
+}
+
+#logo {
+    max-width: 100px;
+}
+
+.col {
+  margin-bottom: 20px; /* Agrega espacio entre las tarjetas verticalmente */
+}
+
+.card {
+  background-color: #f5f5f5; /* Color de fondo de las tarjetas */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.card-body {
+ background-color:  #f7f6e4; /* Color del texto del cuerpo */
+}
+
+.card-title {
+  color: #5f3711; /* Color del título de la tarjeta */
+}
+
+.card-title {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 16px;
+  text-align: justify;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.up {
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.down {
+  display: flex;
+  flex-direction: row;
+}
+
+.card1 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 90px 5px 5px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.instagram {
+  margin-top: 1.5em;
+  margin-left: 1.2em;
+  fill: #cc39a4;
+}
+
+.card2 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 90px 5px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.facebook {
+  margin-top: 1.5em;
+  margin-left: -.9em;
+  fill: #03A9F4;
+}
+
+.card3 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 5px 5px 90px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.whatsapp {
+  margin-top: -.6em;
+  margin-left: 1.2em;
+  fill: #00ff00;
+}
+
+.card4 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 5px 90px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.gmail {
+  margin-top: -.9em;
+  margin-left: -1.2em;
+  fill: #f14336;
+}
+
+.card1:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #cc39a4;
+}
+
+.card1:hover .instagram {
+  fill: white;
+}
+
+.card2:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #1877f2;
+}
+
+.card2:hover .facebook {
+  fill: white;
+}
+
+.card3:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #00ff00;
+}
+
+.card3:hover .whatsapp {
+  fill: white;
+}
+
+.card4:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #FF0004;
+}
+
+.card4:hover .gmail {
+  fill: white;
+}
+
+.absolute {
+  position: absolute;
+  top: 50%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%);
+  text-align: center;
+  margin-top: 30px;
+}
+
+/* Estilos para el carrusel */
+.carousel {
+  position: relative;
+  z-index: 1; /* Asegura que esté detrás del div superpuesto */
+}
+
+#carouselExampleAutoplaying {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 500px; /* Altura máxima del carrusel */
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+header .logo{
+			position: relative;
+			color: #fff;
+			font-weight: bold;
+			font-size: 2em;
+			letter-spacing: 2px;
+			transition: 1.5s;
+			text-decoration: none;
+		}
+		nav{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+*{
+			margin: 0;
+			padding: 0;
+		}
+		header{
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			display: flex;
+			/* justify-content: space-around; */
+			transition: 0.7s;
+			padding: 30px 20px;
+			z-index: 10;
+			text-align: right;
+		}
+		header.abajo{
+			background: #fff;
+			padding: 15px 20px;
+		}
+		header .logo{
+			position: relative;
+			color: #fff;
+			font-weight: bold;
+			font-size: 2em;
+			letter-spacing: 2px;
+			transition: 1.5s;
+			text-decoration: none;
+			/* MAX-HEIGHT: 30px; */
+		}
+		nav{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: right;
+			position: absolute;
+			right: 0;
+			top: 60px;
+		}
+
+		header ul{
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		header ul li{
+			list-style: none;
+		}
+
+		header ul li a{
+			position: relative;
+			font-family: helvetica;
+			margin: 0 15px;
+			text-decoration: none;
+			color: #fff;
+			letter-spacing: 2px;
+			font-weight: 600;
+			transition: 0.7s;
+		}
+
+		.zona1{
+			position: relative;
+			width: 100%;
+			height: 100vh;
+            background: url(/TiendaProductos/img/artemisa3.jpg);
+			background-size: cover;
+			background-position: center bottom;
+			
+		}
+		header.abajo .logo,
+		header.abajo ul li a{
+			color: #000;
+		}
+		
+		.menucontainer {
+            margin: 0 auto; 
+            text-align: center; 
+            width: fit-content; 
+            margin-top: 200px;
+        }
+  #Welcome{
+  font-family: "Cedarville Cursive", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 80px;
+  }
+  #titulo2{
+	font-family: "Cedarville Cursive", cursive;
+  font-weight: 300;
+  font-style: normal;  
+  font-size: 40px;
+  }
+  
+  #seccion4{
+	  text-align: center;
+  }
+#seccion41,
+#seccion42 {
+    width: 18rem;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px;
+}
+
+#seccion5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+.muydificil{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+
+  
+  .up button,
+  .down button {
+    display: inline-block;
+    margin: 5px; 
+  }
+  
+  
+  /* Variables */
+:root {
+  --hoverEasing: cubic-bezier(0.23, 1, 0.32, 1);
+  --returnEasing: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+/* Layout, Text & Colors */
+
+
+.cardu {
+            width: 200px;
+            height: 300px;
+            background-color: #f0f0f0;
+            margin: 20px;
+            display: inline-block;
+            perspective: 1000px;
+        }
+        .cardu-inner {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+      .cardu:hover .cardu-inner {
+    transform: rotateX(calc(20deg + var(--mouse-y) * 0.02)) rotateY(calc(20deg + var(--mouse-x) * 0.02));
+}
+        .cardu-front, .cardu-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .cardu-front {
+            background-color: #dbd1b3;
+        }
+        .cardu-back {
+            background-color: #f0f0f0;
+            color: #dbd1b3;
+            transform: rotateY(180deg);
+        }
+       .cardu-text {
+            position: absolute;
+            top: 50%; /* Alineado verticalmente */
+            left: 50%; /* Alineado horizontalmente */
+            transform: translate(-50%, -50%);
+            opacity: 0; /* Inicialmente oculto */
+            transition: opacity 0.3s ease;
+            color: #fff;
+            text-decoration-color: #f0f0f0;
+        }
+
+        .cardu:hover .cardu-text {
+            opacity: 1; /* Mostrar el texto cuando se pasa el mouse */
+        }
