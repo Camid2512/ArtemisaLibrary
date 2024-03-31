@@ -1,5 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.unbosque.model.User;
@@ -50,6 +51,25 @@ public class UserDAO {
 				em.close();
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<User> readAll() {
+		open();
+		try {
+			return (ArrayList<User>) em.createQuery("select p from libraryuser p").getResultList();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		} finally {
+			if (emf != null) {
+				emf.close();
+			}
+			if (em != null) {
+				em.close();
+			}
+		}
+		return new ArrayList<User>();
 	}
 
 	public int count() {

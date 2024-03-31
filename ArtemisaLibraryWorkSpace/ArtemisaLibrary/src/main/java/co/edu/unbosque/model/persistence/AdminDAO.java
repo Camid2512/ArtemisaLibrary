@@ -1,8 +1,10 @@
 package co.edu.unbosque.model.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.unbosque.model.Admin;
+import co.edu.unbosque.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -49,6 +51,25 @@ public class AdminDAO {
 				em.close();
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Admin> readAll() {
+		open();
+		try {
+			return (ArrayList<Admin>) em.createQuery("select p from libraryadmin p").getResultList();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		} finally {
+			if (emf != null) {
+				emf.close();
+			}
+			if (em != null) {
+				em.close();
+			}
+		}
+		return new ArrayList<Admin>();
 	}
 
 	public int count() {
