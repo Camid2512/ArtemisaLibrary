@@ -81,6 +81,10 @@ public class UserService {
 
 	}
 
+	public boolean userExist(String username) {
+		return uDAO.userExist(username);
+	}
+
 	public List<UserDTO> getUserList() {
 		return userList;
 	}

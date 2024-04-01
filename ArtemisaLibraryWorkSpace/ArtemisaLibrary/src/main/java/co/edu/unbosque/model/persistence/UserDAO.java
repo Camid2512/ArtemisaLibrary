@@ -75,7 +75,7 @@ public class UserDAO {
 	public int count() {
 		try {
 			open();
-			List<User> users = em.createQuery("SELECT u FROM libraryuser u", User.class).getResultList();
+			List<User> users = em.createQuery("SELECT u FROM User u", User.class).getResultList();
 			return users.size();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,6 +88,29 @@ public class UserDAO {
 				em.close();
 			}
 		}
+	}
+
+	public boolean userExist(String username) {
+
+		open();
+		try {
+
+			List<User> users = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+					.setParameter("username", username).getResultList();
+			return !users.isEmpty();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (emf != null) {
+				emf.close();
+			}
+			if (em != null) {
+				em.close();
+			}
+		}
+
 	}
 
 }

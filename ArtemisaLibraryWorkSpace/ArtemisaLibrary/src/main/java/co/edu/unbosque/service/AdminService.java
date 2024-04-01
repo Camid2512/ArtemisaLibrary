@@ -5,10 +5,7 @@ import java.util.List;
 
 import co.edu.unbosque.model.Admin;
 import co.edu.unbosque.model.AdminDTO;
-import co.edu.unbosque.model.User;
-import co.edu.unbosque.model.UserDTO;
 import co.edu.unbosque.model.persistence.AdminDAO;
-import co.edu.unbosque.model.persistence.UserDAO;
 import jakarta.annotation.PostConstruct;
 
 public class AdminService {
@@ -82,6 +79,10 @@ public class AdminService {
 
 		return adminList.size();
 
+	}
+
+	public boolean userExist(String username) {
+		return aDAO.adminExist(username);
 	}
 
 	public List<AdminDTO> getAdminList() {

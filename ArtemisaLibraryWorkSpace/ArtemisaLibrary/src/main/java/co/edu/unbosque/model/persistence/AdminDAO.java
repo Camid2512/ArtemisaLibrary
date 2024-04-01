@@ -74,7 +74,7 @@ public class AdminDAO {
 	public int count() {
 		try {
 			open();
-			List<Admin> users = em.createQuery("SELECT u FROM libraryadmin u", Admin.class).getResultList();
+			List<Admin> users = em.createQuery("SELECT u FROM Admin u", Admin.class).getResultList();
 			return users.size();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,6 +87,29 @@ public class AdminDAO {
 				em.close();
 			}
 		}
+	}
+
+	public boolean adminExist(String username) {
+
+		open();
+		try {
+
+			List<Admin> admins = em.createQuery("SELECT u FROM Admin u WHERE u.username = :username", Admin.class)
+					.setParameter("username", username).getResultList();
+			return !admins.isEmpty();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (emf != null) {
+				emf.close();
+			}
+			if (em != null) {
+				em.close();
+			}
+		}
+
 	}
 
 }

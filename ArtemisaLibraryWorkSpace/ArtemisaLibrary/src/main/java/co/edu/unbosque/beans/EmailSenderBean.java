@@ -7,8 +7,13 @@ import co.edu.unbosque.model.Email;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 @Named("emailSenderBean")
 @SessionScoped
@@ -36,10 +41,24 @@ public class EmailSenderBean implements Serializable {
 
 		});
 		try {
-
-		} catch (Exception e) {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("softpylsa@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email.getRecipient()));
+			message.setSubject(email.getSubject());
+			message.setText(email.getContent());
+			Transport.send(message);
+		} catch (MessagingException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public void setEmail(Email email) {
+		this.email = email;
 	}
 
 }
