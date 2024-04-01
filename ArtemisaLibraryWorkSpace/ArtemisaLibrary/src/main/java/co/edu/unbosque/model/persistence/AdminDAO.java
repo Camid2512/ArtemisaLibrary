@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.unbosque.model.Admin;
-import co.edu.unbosque.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
