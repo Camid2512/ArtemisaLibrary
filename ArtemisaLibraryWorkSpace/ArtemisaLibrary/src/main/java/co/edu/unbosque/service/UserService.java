@@ -58,6 +58,16 @@ public class UserService implements ServiceOperation<UserDTO> {
 		}
 	}
 
+	public boolean login(String username, String password) {
+		UserDTO posibleUser = findUserByUsername(username);
+		if (posibleUser.getPassword().equals(password) && posibleUser != null) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public void create(UserDTO obj) {
 
 		uDAO.create(toEntity(obj));
@@ -78,6 +88,19 @@ public class UserService implements ServiceOperation<UserDTO> {
 	public int count() {
 
 		return userList.size();
+
+	}
+
+	public UserDTO findUserByUsername(String usernameSearch) {
+
+		for (UserDTO userDTO : userList) {
+
+			if (userDTO.getUsername().equals(usernameSearch)) {
+				return userDTO;
+			}
+
+		}
+		return null;
 
 	}
 

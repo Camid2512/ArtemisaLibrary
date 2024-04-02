@@ -46,27 +46,36 @@
 			<div class="login">
 				<h2>INICIA SESION</h2>
 				<div class="inputbox">
-					<input type="text" name="username" placeholder="  USUARIO"></input>
-					<input type="password" name="password" placeholder="  CONTRASEÑA"></input>
+					<h:form>
+						<input type="text" name="username"
+							value="#{userManagmentBean.userMode ? userManagmentBean.newUser.username : userManagmentBean.newAdmin.username}"
+							placeholder="  USUARIO"></input>
+						<input type="password" name="password"
+							value="#{userManagmentBean.userMode ? userManagmentBean.newUser.password : userManagmentBean.newAdmin.password}"
+							placeholder="  CONTRASEÑA"></input>
+						<p:commandButton value="INICIAR SESION"
+							actionListener="#{userManagmentBean.login}" />
+					</h:form>
 				</div>
 
-				<a href='bibliotecartemisaAdmin.xhtml'><button>INICIA
-						SESION</button></a>
 			</div>
 
 			<div class="signup hide">
 				<h2>CREAR CUENTA</h2>
 				<div class="inputbox">
-					<input type="text" name="username"
-						value="#{userManagmentBean.userMode ? userManagmentBean.newUser.username : userManagmentBean.newAdmin.username}"
-						placeholder="  USUARIO" /> <input type="text" name="email"
-						value="#{userManagmentBean.userMode ? userManagmentBean.newUser.email : userManagmentBean.newAdmin.email}"
-						placeholder="  CORREO" /> <input type="password" name="password"
-						value="#{userManagmentBean.userMode ? userManagmentBean.newUser.password : userManagmentBean.newAdmin.password}"
-						placeholder="  CONTRASEÑA" />
+					<h:form>
+						<input type="text" name="username"
+							value="#{userManagmentBean.newUser.username}"
+							placeholder="  USUARIO" />
+						<input type="text" name="email"
+							value="#{userManagmentBean.newUser.email}" placeholder="  CORREO" />
+						<input type="password" name="password"
+							value="#{userManagmentBean.newUser.password}"
+							placeholder="  CONTRASEÑA" />
+						<p:commandButton value="CREAR CUENTA"
+							actionListener="#{userManagmentBean.createUser}" />
+					</h:form>
 				</div>
-				<p:commandButton value="CREAR CUENTA"
-					actionListener="#{userManagmentBean.createUser}" />
 			</div>
 
 

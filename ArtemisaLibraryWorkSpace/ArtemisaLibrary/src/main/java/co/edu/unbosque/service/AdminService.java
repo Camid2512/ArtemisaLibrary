@@ -58,6 +58,18 @@ public class AdminService implements ServiceOperation<AdminDTO> {
 		}
 	}
 
+	public boolean login(String username, String password) {
+
+		AdminDTO posibleAdmin = findUserByUsername(username);
+
+		if (posibleAdmin.getPassword().equals(password) && posibleAdmin != null) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public void create(AdminDTO obj) {
 
 		aDAO.create(toEntity(obj));
@@ -78,6 +90,19 @@ public class AdminService implements ServiceOperation<AdminDTO> {
 	public int count() {
 
 		return adminList.size();
+
+	}
+
+	public AdminDTO findUserByUsername(String usernameSearch) {
+
+		for (AdminDTO adminDTO : adminList) {
+
+			if (adminDTO.getUsername().equals(usernameSearch)) {
+				return adminDTO;
+			}
+
+		}
+		return null;
 
 	}
 

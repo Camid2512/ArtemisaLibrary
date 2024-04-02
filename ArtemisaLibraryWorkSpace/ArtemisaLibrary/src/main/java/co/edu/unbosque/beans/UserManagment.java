@@ -13,6 +13,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Named("userManagmentBean")
 @SessionScoped
@@ -25,6 +27,8 @@ public class UserManagment implements Serializable {
 	private UserDTO newUser;
 	private AdminDTO newAdmin;
 	private boolean userMode = false;
+	private List<UserDTO> usersInTable;
+	private List<AdminDTO> adminInTable;
 
 	private EmailSenderBean emailSenderBean;
 
@@ -32,10 +36,54 @@ public class UserManagment implements Serializable {
 	public void init() {
 		newUser = new UserDTO();
 		newAdmin = new AdminDTO();
+
+	}
+
+	public void openNew() {
+		this.newUser = new UserDTO();
+		this.newAdmin = new AdminDTO();
+		this.usersInTable = new ArrayList<>();
+		this.usersInTable = userService.getUserList();
+	}
+
+	public void login() {
+		openNew();
+		String usernameAdmin = newAdmin.getUsername();
+		String passwordAdmin = newAdmin.getPassword();
+		String usernameUser = newUser.getUsername();
+		String passwordUser = newUser.getUsername();
+
+		int aux = 0;
+
+		if (userService.login(usernameUser, passwordUser) == true) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecaartemisa.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			aux++;
+		}
+		if (adminService.login(usernameAdmin, passwordAdmin)) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecaartemisaAdmin.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			aux++;
+		}
+		if (aux > 0) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "USUARIO O CONTRASEÑA INCORRECTAS"));
+		}
+
 	}
 
 	public void createUser() {
-
+		openNew();
 		String emailAdmin = newAdmin.getEmail();
 		String emailUser = newUser.getEmail();
 
@@ -90,8 +138,11 @@ public class UserManagment implements Serializable {
 	}
 
 	public boolean verifyEmail(String email) {
-
-		return email.endsWith("@unbosque.edu.co");
+		openNew();
+		if (email != null && email.endsWith("@unbosque.edu.co")) {
+			return true;
+		}
+		return false;
 
 	}
 
@@ -145,6 +196,22 @@ public class UserManagment implements Serializable {
 
 	public void setUserMode(boolean userMode) {
 		this.userMode = userMode;
+	}
+
+	public List<UserDTO> getUsersInTable() {
+		return usersInTable;
+	}
+
+	public void setUsersInTable(List<UserDTO> usersInTable) {
+		this.usersInTable = usersInTable;
+	}
+
+	public List<AdminDTO> getAdminInTable() {
+		return adminInTable;
+	}
+
+	public void setAdminInTable(List<AdminDTO> adminInTable) {
+		this.adminInTable = adminInTable;
 	}
 
 }
