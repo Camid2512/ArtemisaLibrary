@@ -8,7 +8,7 @@ import co.edu.unbosque.model.AdminDTO;
 import co.edu.unbosque.model.persistence.AdminDAO;
 import jakarta.annotation.PostConstruct;
 
-public class AdminService {
+public class AdminService implements ServiceOperation<AdminDTO> {
 
 	private List<AdminDTO> adminList;
 	private AdminDAO aDAO = new AdminDAO();
@@ -99,6 +99,24 @@ public class AdminService {
 
 	public void setaDAO(AdminDAO aDAO) {
 		this.aDAO = aDAO;
+	}
+
+	@Override
+	public boolean delete(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(long id, AdminDTO obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public AdminDTO findOne(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

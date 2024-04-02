@@ -8,7 +8,7 @@ import co.edu.unbosque.model.UserDTO;
 import co.edu.unbosque.model.persistence.UserDAO;
 import jakarta.annotation.PostConstruct;
 
-public class UserService {
+public class UserService implements ServiceOperation<UserDTO> {
 
 	private List<UserDTO> userList;
 	private UserDAO uDAO = new UserDAO();
@@ -99,6 +99,24 @@ public class UserService {
 
 	public void setuDAO(UserDAO uDAO) {
 		this.uDAO = uDAO;
+	}
+
+	@Override
+	public boolean delete(long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(long id, UserDTO obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public UserDTO findOne(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

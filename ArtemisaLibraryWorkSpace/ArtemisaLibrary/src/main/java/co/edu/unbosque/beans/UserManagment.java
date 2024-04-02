@@ -12,17 +12,21 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.IOException;
+import java.io.Serializable;
 
-@Named("userManagment")
+@Named("userManagmentBean")
 @SessionScoped
-public class UserManagment {
-	private EmailSenderBean emailSenderBean;
+public class UserManagment implements Serializable {
 
 	@Inject
+	private static final long serialVersionUID = 1L;
 	private AdminService adminService;
 	private UserService userService;
 	private UserDTO newUser;
 	private AdminDTO newAdmin;
+	private boolean userMode = false;
+
+	private EmailSenderBean emailSenderBean;
 
 	@PostConstruct
 	public void init() {
@@ -52,7 +56,7 @@ public class UserManagment {
 		}
 
 		if (emailAdmin.equals("dferrodriguezc@unbosque.edu.co")) {
-
+			userMode = false;
 			adminService.create(newAdmin);
 			Email email = new Email(emailAdmin, "¡Bienvenido a la biblioteca artemisa!",
 					"USTED SE HA REGISTRADO CORRECTAMENTE PARA ACCEDER A LA BIBLIOTECA ARTEMISA COMO ADMINISTRADOR");
@@ -67,6 +71,7 @@ public class UserManagment {
 			}
 
 		} else {
+			userMode = true;
 			userService.create(newUser);
 			Email email = new Email(emailUser, "¡Bienvenido a la biblioteca artemisa!",
 					"USTED SE HA REGISTRADO CORRECTAMENTE PARA ACCEDER A LA BIBLIOTECA ARTEMISA COMO UN NUEVO USUARIO");
@@ -88,6 +93,58 @@ public class UserManagment {
 
 		return email.endsWith("@unbosque.edu.co");
 
+	}
+
+	public EmailSenderBean getEmailSenderBean() {
+		return emailSenderBean;
+	}
+
+	public void setEmailSenderBean(EmailSenderBean emailSenderBean) {
+		this.emailSenderBean = emailSenderBean;
+	}
+
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public UserDTO getNewUser() {
+		return newUser;
+	}
+
+	public void setNewUser(UserDTO newUser) {
+		this.newUser = newUser;
+	}
+
+	public AdminDTO getNewAdmin() {
+		return newAdmin;
+	}
+
+	public void setNewAdmin(AdminDTO newAdmin) {
+		this.newAdmin = newAdmin;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public boolean isUserMode() {
+		return userMode;
+	}
+
+	public void setUserMode(boolean userMode) {
+		this.userMode = userMode;
 	}
 
 }

@@ -27,16 +27,16 @@
 		<div class="backbox">
 			<div class="loginMsg">
 				<div class="textcontent">
-					<p class="title">Don't have an account?</p>
-					<p>Sign up to access to this library.</p>
-					<button id="switch1">Sign Up</button>
+					<p class="title">No tienes una cuenta?</p>
+					<p>Crea una para acceder a la libreria.</p>
+					<button id="switch1">CREAR CUENTA</button>
 				</div>
 			</div>
 			<div class="signupMsg visibility">
 				<div class="textcontent">
-					<p class="title">Have an account?</p>
-					<p>Log in to access to this library.</p>
-					<a><button id="switch2">LOG IN</button></a>
+					<p class="title">Ya tienes una cuenta?</p>
+					<p>Inicia sesion para acceder a la libreria.</p>
+					<a><button id="switch2">INICIA SESION</button></a>
 				</div>
 			</div>
 		</div>
@@ -44,24 +44,31 @@
 
 		<div class="frontbox">
 			<div class="login">
-				<h2>LOG IN</h2>
+				<h2>INICIA SESION</h2>
 				<div class="inputbox">
-					<input type="text" name="username" placeholder="  USERNAME"></input>
-					<input type="password" name="password" placeholder="  PASSWORD"></input>
+					<input type="text" name="username" placeholder="  USUARIO"></input>
+					<input type="password" name="password" placeholder="  CONTRASEÑA"></input>
 				</div>
 
-				<a href='bibliotecartemisaAdmin.xhtml'><button>LOG IN</button></a>
+				<a href='bibliotecartemisaAdmin.xhtml'><button>INICIA
+						SESION</button></a>
 			</div>
 
 			<div class="signup hide">
-				<h2>SIGN UP</h2>
+				<h2>CREAR CUENTA</h2>
 				<div class="inputbox">
-					<input type="text" name="username" placeholder="  USERNAME"></input>
-					<input type="text" name="email" placeholder="  EMAIL"></input> <input
-						type="password" name="password" placeholder="  PASSWORD"></input>
+					<input type="text" name="username"
+						value="#{userManagmentBean.userMode ? userManagmentBean.newUser.username : userManagmentBean.newAdmin.username}"
+						placeholder="  USUARIO" /> <input type="text" name="email"
+						value="#{userManagmentBean.userMode ? userManagmentBean.newUser.email : userManagmentBean.newAdmin.email}"
+						placeholder="  CORREO" /> <input type="password" name="password"
+						value="#{userManagmentBean.userMode ? userManagmentBean.newUser.password : userManagmentBean.newAdmin.password}"
+						placeholder="  CONTRASEÑA" />
 				</div>
-				<a href='bibliotecartemisa.xhtml'><button>SIGN UP</button></a>
+				<p:commandButton value="CREAR CUENTA"
+					actionListener="#{userManagmentBean.createUser}" />
 			</div>
+
 
 		</div>
 		<!-- frontbox -->
