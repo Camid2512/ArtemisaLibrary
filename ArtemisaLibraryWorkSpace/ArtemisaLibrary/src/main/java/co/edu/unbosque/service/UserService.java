@@ -7,7 +7,10 @@ import co.edu.unbosque.model.User;
 import co.edu.unbosque.model.UserDTO;
 import co.edu.unbosque.model.persistence.UserDAO;
 import jakarta.annotation.PostConstruct;
-
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+@Named
+@ApplicationScoped
 public class UserService implements ServiceOperation<UserDTO> {
 
 	private List<UserDTO> userList;
@@ -102,6 +105,10 @@ public class UserService implements ServiceOperation<UserDTO> {
 		}
 		return null;
 
+	}
+	
+	public List<UserDTO> getUser() {
+		return userList;
 	}
 
 	public boolean userExist(String username) {

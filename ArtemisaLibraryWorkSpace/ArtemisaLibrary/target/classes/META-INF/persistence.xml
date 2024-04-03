@@ -24,7 +24,7 @@
 
 			<property
 				name="jakarta.persistence.schema-generation.database.action"
-				value="create" />
+				value="none" />
 			<!--"create" solamente la primera vez que se arranque el aplicativo, luego 
 				cambiar a none "none" -->
 
