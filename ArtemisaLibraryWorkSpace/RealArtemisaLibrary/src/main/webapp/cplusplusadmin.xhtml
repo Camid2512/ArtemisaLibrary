@@ -19,7 +19,7 @@
 	<div class="card crud-demo">
 		<h:form id="form">
 			<p:growl id="messages" showDetail="true" />
-
+	
 			<p:toolbar>
 				<p:toolbarGroup>
 					<p:commandButton value="New" icon="pi pi-plus"
@@ -40,10 +40,9 @@
 					</p:commandButton>
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
-					<p:commandButton value="Exportar" icon="pi pi-upload"
-						styleClass="ui-button-help" ajax="false">
-						<p:dataExporter type="pdf" target="dt-products" fileName="cplus" />
-					</p:commandButton>
+					<p:commandButton value="Export" icon="pi pi-upload"
+						styleClass="ui-button-help" ajax="false"
+						actionListener="#{cplusBean.exportToPDF}" />
 				</p:toolbarGroup>
 			</p:toolbar>
 

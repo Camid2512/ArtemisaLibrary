@@ -46,7 +46,7 @@ public class ChartsAdminBean implements Serializable {
 		ChartData data = new ChartData();
 
 		BarChartDataSet barDataSet = new BarChartDataSet();
-		barDataSet.setLabel("Temas por lenguaje");
+		barDataSet.setLabel("Usuarios Registrados");
 
 		List<Number> numTopics = new ArrayList<>();
 		int numUsers = 0;

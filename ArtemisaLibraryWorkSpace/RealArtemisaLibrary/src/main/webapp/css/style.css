@@ -552,3 +552,9 @@ header .logo{
         .cardu:hover .cardu-text {
             opacity: 1; /* Mostrar el texto cuando se pasa el mouse */
         }
+        
+      .grid {
+    width: 500px;
+    margin: auto;
+    margin-top: 20px;
+}
