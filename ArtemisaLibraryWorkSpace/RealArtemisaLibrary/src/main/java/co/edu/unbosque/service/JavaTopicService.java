@@ -7,7 +7,11 @@ import co.edu.unbosque.model.JavaTopic;
 import co.edu.unbosque.model.JavaTopicDTO;
 import co.edu.unbosque.model.persistence.JavaTopicDAO;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@Named
+@ApplicationScoped
 public class JavaTopicService implements ServiceOperation<JavaTopicDTO> {
 
 	private List<JavaTopicDTO> topics;

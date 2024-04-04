@@ -105,7 +105,7 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 		open();
 		try {
 			// usando JPQL
-			return (ArrayList<PythonTopic>) em.createQuery("select p from pythontopics p").getResultList();
+			return (ArrayList<PythonTopic>) em.createQuery("select p from PythonTopic p").getResultList();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {

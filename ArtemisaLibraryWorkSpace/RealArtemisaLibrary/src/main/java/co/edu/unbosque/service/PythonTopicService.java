@@ -7,7 +7,11 @@ import co.edu.unbosque.model.PythonTopic;
 import co.edu.unbosque.model.PythonTopicDTO;
 import co.edu.unbosque.model.persistence.PythonTopicDAO;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@Named
+@ApplicationScoped
 public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 
 	private List<PythonTopicDTO> topics;

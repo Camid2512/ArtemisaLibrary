@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.component.export.Exporter;
 
-import co.edu.unbosque.model.CPLUSTopicDTO;
-import co.edu.unbosque.service.CPLUSService;
+import co.edu.unbosque.model.PythonTopicDTO;
+import co.edu.unbosque.service.PythonTopicService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
@@ -17,52 +15,50 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named("cplusBean")
+@Named("pythonBean")
 @SessionScoped
-public class CPLUSBean implements Serializable {
+public class PythonBean implements Serializable {
 
 	@Inject
-	private CPLUSService cplusService;
+	private PythonTopicService pythonService;
 
 	private static final long serialVersionUID = 4607905883171191425L;
-	private List<CPLUSTopicDTO> topicsInTable;
-	private CPLUSTopicDTO selectedTopic;
-	private List<CPLUSTopicDTO> variousSelectedTopics;
-	private Exporter<DataTable> textExporter;
+	private List<PythonTopicDTO> topicsInTable;
+	private PythonTopicDTO selectedTopic;
+	private List<PythonTopicDTO> variousSelectedTopics;
 
 	@PostConstruct
 	public void init() {
 		this.topicsInTable = new ArrayList<>();
-		this.topicsInTable = cplusService.getTopics();
-		this.variousSelectedTopics = new ArrayList<CPLUSTopicDTO>();
-		textExporter = new TextExporter();
+		this.topicsInTable = pythonService.getTopics();
+		this.variousSelectedTopics = new ArrayList<PythonTopicDTO>();
 
 	}
 
 	public void openNew() {
-		this.selectedTopic = new CPLUSTopicDTO();
+		this.selectedTopic = new PythonTopicDTO();
 	}
 
 	public void saveTopic() {
 		if (this.selectedTopic.getId() == 0) {
 			this.selectedTopic.setId(0);
-			cplusService.create(selectedTopic);
+			pythonService.create(selectedTopic);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("TEMA AGREGADO"));
 		} else {
-			cplusService.update(selectedTopic.getId(), selectedTopic);
+			pythonService.update(selectedTopic.getId(), selectedTopic);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("TEMA ACTUALIZADO"));
 		}
-		this.topicsInTable = cplusService.getTopics();
+		this.topicsInTable = pythonService.getTopics();
 		PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
 		PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
 
 	}
 
 	public void deleteTopic() {
-		cplusService.delete(this.selectedTopic.getId());
+		pythonService.delete(this.selectedTopic.getId());
 		this.variousSelectedTopics.remove(this.selectedTopic);
 		this.selectedTopic = null;
-		this.topicsInTable = cplusService.getTopics();
+		this.topicsInTable = pythonService.getTopics();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("TEMA ELIMINADO"));
 		PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
 		PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
@@ -85,70 +81,62 @@ public class CPLUSBean implements Serializable {
 
 	public void deleteSelectedTopics() {
 
-		for (CPLUSTopicDTO cplusTopicDTO : variousSelectedTopics) {
+		for (PythonTopicDTO pythonTopicDTO : variousSelectedTopics) {
 
-			cplusService.delete(cplusTopicDTO.getId());
+			pythonService.delete(pythonTopicDTO.getId());
 
 		}
 
 		this.variousSelectedTopics = null;
-		this.topicsInTable = cplusService.getTopics();
+		this.topicsInTable = pythonService.getTopics();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("TEMAS ELIMINADOS"));
 		PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
 		PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
 
 	}
 
-	public List<CPLUSTopicDTO> getProducts() {
+	public List<PythonTopicDTO> getProducts() {
 		return topicsInTable;
 	}
 
-	public void setProducts(List<CPLUSTopicDTO> products) {
+	public void setProducts(List<PythonTopicDTO> products) {
 		this.topicsInTable = products;
 	}
 
-	public CPLUSService getCplusService() {
-		return cplusService;
+	public PythonTopicService getPythonService() {
+		return pythonService;
 	}
 
-	public void setCplusService(CPLUSService cplusService) {
-		this.cplusService = cplusService;
+	public void setPythonService(PythonTopicService pythonService) {
+		this.pythonService = pythonService;
 	}
 
-	public List<CPLUSTopicDTO> getTopicsInTable() {
+	public List<PythonTopicDTO> getTopicsInTable() {
 		return topicsInTable;
 	}
 
-	public void setTopicsInTable(List<CPLUSTopicDTO> topicsInTable) {
+	public void setTopicsInTable(List<PythonTopicDTO> topicsInTable) {
 		this.topicsInTable = topicsInTable;
 	}
 
-	public CPLUSTopicDTO getSelectedTopic() {
+	public PythonTopicDTO getSelectedTopic() {
 		return selectedTopic;
 	}
 
-	public void setSelectedTopic(CPLUSTopicDTO selectedTopic) {
+	public void setSelectedTopic(PythonTopicDTO selectedTopic) {
 		this.selectedTopic = selectedTopic;
 	}
 
-	public List<CPLUSTopicDTO> getVariousSelectedTopics() {
+	public List<PythonTopicDTO> getVariousSelectedTopics() {
 		return variousSelectedTopics;
 	}
 
-	public void setVariousSelectedTopics(List<CPLUSTopicDTO> variousSelectedTopics) {
+	public void setVariousSelectedTopics(List<PythonTopicDTO> variousSelectedTopics) {
 		this.variousSelectedTopics = variousSelectedTopics;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public Exporter<DataTable> getTextExporter() {
-		return textExporter;
-	}
-
-	public void setTextExporter(Exporter<DataTable> textExporter) {
-		this.textExporter = textExporter;
 	}
 
 }

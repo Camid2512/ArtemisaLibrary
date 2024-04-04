@@ -105,7 +105,7 @@ public class JavaTopicDAO implements CRUDOperation<JavaTopic> {
 		open();
 		try {
 			// usando JPQL
-			return (ArrayList<JavaTopic>) em.createQuery("select p from javatopics p").getResultList();
+			return (ArrayList<JavaTopic>) em.createQuery("select p from JavaTopic p").getResultList();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {
