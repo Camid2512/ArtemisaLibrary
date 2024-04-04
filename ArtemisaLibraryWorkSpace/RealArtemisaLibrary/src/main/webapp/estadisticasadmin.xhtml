@@ -19,18 +19,9 @@
 	<div class="card">
 		<h:form>
 			<p:growl id="growl" showDetail="true" />
-			<p:barChart model="#{chartsUserBean.barModel}"
+			<p:barChart model="#{chartsAdminBean.barModel2}"
 				style="width: 60%; height: 400px;" />
 		</h:form>
-	</div>
-
-	<div class="grid">
-		<div class="col-12 lg:col-6 xl:col-4">
-			<div class="card">
-				<p:pieChart id="pieChart" model="#{chartsUserBean.pieModel}"
-					style="width: 150px; height: 150px;" />
-			</div>
-		</div>
 	</div>
 
 </h:body>
