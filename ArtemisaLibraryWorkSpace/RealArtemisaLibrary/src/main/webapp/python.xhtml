@@ -6,72 +6,186 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	
-	<h:head>
 
-	<link rel="stylesheet" type="text/css" href="css/style.css" ></link>
-	
-	<title>Biblioteca Artemisa</title>
+<h:head>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
+
+	<title>Python</title>
 </h:head>
 
 <h:body>
 
-<h:form>
-<div class="card">
-<div class="flex justify-content-between">
-   <div>
-   </div>
-   <div>
-      <p:commandButton value="XLSX" styleClass="mr-2 mb-2" >
-          <p:dataExporter type="xlsxstream" target="products" fileName="visible" visibleOnly="true"/>
-      </p:commandButton>
+	<div class="card crud-demo">
+		<h:form id="form">
+			<p:growl id="messages" showDetail="true" />
 
-      <p:commandButton value="PDF" styleClass="mr-2 mb-2" >
-          <p:dataExporter type="pdf" target="products" fileName="visible" visibleOnly="true"/>
-      </p:commandButton>
-   </div>
-</div>
-    <p:dataTable id="products" var="product" value="#{dtBasicView.products}">
-        <f:facet name="header">
-            <div class="flex justify-content-between align-items-center">
-                List of Products
+			<p:toolbar>
+				<p:toolbarGroup>
+					<p:commandButton value="New" icon="pi pi-plus"
+						actionListener="#{pythonBean.openNew}"
+						update=":dialogs:manage-product-content"
+						oncomplete="PF('manageProductDialog').show()"
+						styleClass="ui-button-success" style="margin-right: .5rem"
+						rendered="false">
+						<p:resetInput target=":dialogs:manage-product-content" />
+					</p:commandButton>
+					<p:commandButton id="delete-products-button"
+						value="#{pythonBean.deleteButtonMessage}" icon="pi pi-trash"
+						actionListener="#{pythonBean.deleteSelectedTopics}"
+						styleClass="ui-button-danger"
+						disabled="#{!pythonBean.hasSelectedTopics()}" update="@this"
+						rendered="false">
+						<p:confirm header="Confirmation"
+							message="Delete the selected topics?"
+							icon="pi pi-exclamation-triangle" />
+					</p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:commandButton value="Export" icon="pi pi-upload"
+						styleClass="ui-button-help" ajax="false">
+						<p:dataExporter type="pdf" target="dt-products"
+							fileName="products" />
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
 
-                <div>
-                    <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
-                    <p:columnToggler datasource="products" trigger="toggler">
-                        <p:ajax />
-                    </p:columnToggler>
-                </div>
-            </div>
-        </f:facet>
+			<p:dataTable id="dt-products" widgetVar="dtProducts" var="product"
+				value="#{pythonBean.products}" reflow="true"
+				styleClass="products-table" selection="#{pythonBean.selectedTopic}"
+				rowKey="#{product.id}" paginator="true" rows="10"
+				rowSelectMode="add" paginatorPosition="bottom">
+				<f:facet name="header">
+					<div class="products-table-header">
+						<span style="font-weight: bold">TEMAS</span> <span
+							class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search"></i> <p:inputText id="globalFilter"
+								onkeyup="PF('dtProducts').filter()" placeholder="Search" />
+						</span>
+					</div>
+				</f:facet>
 
-        <p:column>
-            <f:facet name="header">
-                <h:outputText value="Code" title="Code"/>
-            </f:facet>
-            <h:outputText value="#{product.code}" />
-        </p:column>
+				<p:ajax event="rowSelect" update=":form:delete-products-button" />
+				<p:ajax event="rowUnselect" update=":form:delete-products-button" />
+				<p:ajax event="rowSelectCheckbox"
+					update=":form:delete-products-button" />
+				<p:ajax event="rowUnselectCheckbox"
+					update=":form:delete-products-button" />
+				<p:ajax event="toggleSelect" update=":form:delete-products-button" />
 
-        <p:column headerText="Name">
-            <h:outputText value="#{product.name}" />
-        </p:column>
+				<p:column selectionMode="multiple" exportable="false"></p:column>
 
-        <p:column headerText="Category">
-            <h:outputText value="#{product.category}" />
-        </p:column>
+				<p:column headerText="ID" sortBy="#{product.id}"
+					filterBy="#{product.id}">
+					<h:outputText value="#{product.id}" />
+				</p:column>
+				<p:column headerText="Topic Name" sortBy="#{product.topicName}"
+					filterBy="#{product.topicName}">
+					<h:outputText value="#{product.topicName}" />
+				</p:column>
+				<p:column headerText="Descripcion" sortBy="#{product.description}"
+					filterBy="#{product.description}">
+					<h:outputText value="#{product.description}" />
+				</p:column>
+				<p:column headerText="Codigo" sortBy="#{product.code}"
+					filterBy="#{product.code}">
+					<h:outputText value="#{product.code}" />
+				</p:column>
+				<p:column headerText="Dificultad" sortBy="#{product.difficulty}"
+					filterBy="#{product.difficulty}">
+					<h:outputText value="#{product.difficulty}" />
+				</p:column>
 
-        <p:column headerText="Quantity" visible="false">
-            <h:outputText value="#{product.quantity}" />
-        </p:column>
+				<p:column exportable="false">
+					<p:commandButton icon="pi pi-pencil"
+						update=":dialogs:manage-product-content"
+						oncomplete="PF('manageProductDialog').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						process="@this" rendered="false">
+						<f:setPropertyActionListener value="#{product}"
+							target="#{pythonBean.selectedTopic}" />
+						<p:resetInput target=":dialogs:manage-product-content" />
+					</p:commandButton>
+					<p:commandButton class="ui-button-warning rounded-button"
+						icon="pi pi-trash" process="@this"
+						oncomplete="PF('deleteProductDialog').show()" rendered="false">
+						<f:setPropertyActionListener value="#{product}"
+							target="#{pythonBean.selectedTopic}" />
+					</p:commandButton>
+				</p:column>
 
-        <p:column headerText="Price">
-            <h:outputText value="#{product.price}">
-                <f:convertNumber type="currency" currencySymbol="$"/>
-            </h:outputText>
-        </p:column>
-    </p:dataTable>
-</div>
-</h:form>
+			</p:dataTable>
+		</h:form>
+
+		<h:form id="dialogs">
+			<p:dialog header="Detalles del tema" showEffect="fade" modal="true"
+				widgetVar="manageProductDialog" responsive="true" width="80%">
+				<p:outputPanel id="manage-product-content" class="ui-fluid">
+					<p:outputPanel rendered="#{not empty pythonBean.selectedTopic}">
+						<div class="field">
+							<p:outputLabel for="id">ID</p:outputLabel>
+							<p:inputText id="id" value="#{pythonBean.selectedTopic.id}"
+								required="true" readonly="true" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="topicName">Nombre del Tema</p:outputLabel>
+							<p:inputText id="topicName"
+								value="#{pythonBean.selectedTopic.topicName}" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="description">Descripcion del Tema</p:outputLabel>
+							<p:inputTextarea id="description"
+								value="#{pythonBean.selectedTopic.description}" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="code">CODIGO</p:outputLabel>
+							<p:inputTextarea id="code"
+								value="#{pythonBean.selectedTopic.code}" />
+						</div>
+						<div class="field">
+							<p:outputLabel for="difficulty">Dificultad</p:outputLabel>
+							<p:inputText id="difficulty"
+								value="#{pythonBean.selectedTopic.difficulty}" />
+							<p:slider for="difficulty" minValue="0" maxValue="10" step="1"
+								range="min" />
+						</div>
+
+
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<f:facet name="footer">
+					<p:commandButton value="Save" icon="pi pi-check"
+						actionListener="#{pythonBean.saveTopic}"
+						update="manage-product-content"
+						process="manage-product-content @this" />
+					<p:commandButton value="Cancel" icon="pi pi-times"
+						onclick="PF('manageProductDialog').hide()"
+						class="ui-button-secondary" type="button" />
+				</f:facet>
+			</p:dialog>
+
+			<p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade"
+				width="300" message="Eliminar el tema?" header="Confirm"
+				severity="warn">
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{pythonBean.deleteTopic}" process="@this"
+					update=":form:delete-products-button"
+					oncomplete="PF('deleteProductDialog').hide()" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteProductDialog').hide()" />
+			</p:confirmDialog>
+
+			<p:confirmDialog global="true" showEffect="fade" width="300">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no ui-button-secondary"
+					icon="pi pi-times" />
+			</p:confirmDialog>
+		</h:form>
+	</div>
 
 
 </h:body>
