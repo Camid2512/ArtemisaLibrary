@@ -7,11 +7,16 @@ import co.edu.unbosque.model.Admin;
 import co.edu.unbosque.model.AdminDTO;
 import co.edu.unbosque.model.persistence.AdminDAO;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@Named
+@ApplicationScoped
 public class AdminService implements ServiceOperation<AdminDTO> {
 
 	private List<AdminDTO> adminList;
 	private AdminDAO aDAO = new AdminDAO();
+	private AdminDTO posibleAdmin = new AdminDTO();
 
 	@PostConstruct
 	public void init() {
@@ -60,13 +65,15 @@ public class AdminService implements ServiceOperation<AdminDTO> {
 
 	public boolean login(String username, String password) {
 
-		AdminDTO posibleAdmin = findUserByUsername(username);
+		posibleAdmin = findUserByUsername(username);
 
-		if (posibleAdmin.getPassword().equals(password) && posibleAdmin != null) {
-			return true;
-		} else {
-			return false;
+		if (posibleAdmin != null) {
+			String adminPassword = posibleAdmin.getPassword();
+			if (adminPassword.equals(password) && adminPassword != null) {
+				return true;
+			}
 		}
+		return false;
 
 	}
 
@@ -142,6 +149,14 @@ public class AdminService implements ServiceOperation<AdminDTO> {
 	public AdminDTO findOne(long id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public AdminDTO getPosibleAdmin() {
+		return posibleAdmin;
+	}
+
+	public void setPosibleAdmin(AdminDTO posibleAdmin) {
+		this.posibleAdmin = posibleAdmin;
 	}
 
 }

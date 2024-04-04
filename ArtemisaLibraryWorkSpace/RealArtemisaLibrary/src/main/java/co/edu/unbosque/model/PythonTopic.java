@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,9 +19,11 @@ public class PythonTopic {
 	@Column(name = "topicname", nullable = false)
 	private String topicName;
 
+	@Lob
 	@Column(name = "description", nullable = false)
 	private String description;
 
+	@Lob
 	@Column(name = "code", nullable = false)
 	private String code;
 

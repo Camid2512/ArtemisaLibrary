@@ -9,12 +9,14 @@ import co.edu.unbosque.model.persistence.UserDAO;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
+
 @Named
 @ApplicationScoped
 public class UserService implements ServiceOperation<UserDTO> {
 
 	private List<UserDTO> userList;
 	private UserDAO uDAO = new UserDAO();
+	private UserDTO posibleUser = new UserDTO();
 
 	@PostConstruct
 	public void init() {
@@ -62,12 +64,15 @@ public class UserService implements ServiceOperation<UserDTO> {
 	}
 
 	public boolean login(String username, String password) {
-		UserDTO posibleUser = findUserByUsername(username);
-		if (posibleUser.getPassword().equals(password) && posibleUser != null) {
-			return true;
-		} else {
-			return false;
+		posibleUser = findUserByUsername(username);
+
+		if (posibleUser != null) {
+			String userPassword = posibleUser.getPassword();
+			if (userPassword.equals(password) && userPassword != null) {
+				return true;
+			}
 		}
+		return false;
 
 	}
 
@@ -106,7 +111,7 @@ public class UserService implements ServiceOperation<UserDTO> {
 		return null;
 
 	}
-	
+
 	public List<UserDTO> getUser() {
 		return userList;
 	}
@@ -147,6 +152,14 @@ public class UserService implements ServiceOperation<UserDTO> {
 	public UserDTO findOne(long id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public UserDTO getPosibleUser() {
+		return posibleUser;
+	}
+
+	public void setPosibleUser(UserDTO posibleUser) {
+		this.posibleUser = posibleUser;
 	}
 
 }

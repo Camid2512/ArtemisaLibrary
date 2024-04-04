@@ -48,11 +48,12 @@
 				<div class="inputbox">
 					<h:form>
 						<p:inputText id="usernameLogin" type="text" name="usernameLogin"
-							value="#{userBean.usernameLogin}" placeholder="  USUARIO"/>
-						<p:password id="passwordLogin" type="password" name="passwordLogin"
-							value="#{userBean.passwordLogin}" placeholder="  CONTRASEÑA"/>
+							value="#{userBean.usernameLogin}" placeholder="  USUARIO" />
+						<p:password id="passwordLogin" type="password"
+							name="passwordLogin" value="#{userBean.passwordLogin}"
+							placeholder="  CONTRASEÑA" />
 						<p:commandButton value="Iniciar Sesion" id="loginTest"
-							actionListener="#{userBean.loginTest}" />
+							actionListener="#{userBean.logIn}" />
 					</h:form>
 				</div>
 
@@ -66,8 +67,8 @@
 							value="#{userBean.usernameNew}" />
 						<p:inputText type="text" id="emailNew" placeholder="  CORREO"
 							value="#{userBean.emailNew}" />
-						<p:password type="password" id="passwordNew" placeholder="  CONTRASEÑA"
-							value="#{userBean.passwordNew}" />
+						<p:password type="password" id="passwordNew"
+							placeholder="  CONTRASEÑA" value="#{userBean.passwordNew}" />
 						<p:commandButton value="CREAR CUENTA" id="createUser"
 							actionListener="#{userBean.createUser}" />
 					</h:form>

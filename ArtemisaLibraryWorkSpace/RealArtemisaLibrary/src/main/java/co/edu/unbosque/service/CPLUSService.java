@@ -7,7 +7,11 @@ import co.edu.unbosque.model.CPLUSTopic;
 import co.edu.unbosque.model.CPLUSTopicDTO;
 import co.edu.unbosque.model.persistence.CPLUSTopicDAO;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@Named
+@ApplicationScoped
 public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 
 	private List<CPLUSTopicDTO> topics;

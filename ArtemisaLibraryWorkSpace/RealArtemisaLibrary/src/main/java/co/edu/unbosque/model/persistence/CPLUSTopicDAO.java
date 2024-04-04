@@ -105,7 +105,7 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 		open();
 		try {
 			// usando JPQL
-			return (ArrayList<CPLUSTopic>) em.createQuery("select p from cplustopics p").getResultList();
+			return (ArrayList<CPLUSTopic>) em.createQuery("select p from CPLUSTopic p").getResultList();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		} finally {

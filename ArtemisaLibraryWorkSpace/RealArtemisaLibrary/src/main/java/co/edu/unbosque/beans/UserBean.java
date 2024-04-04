@@ -6,8 +6,10 @@ import java.util.regex.Pattern;
 
 import org.primefaces.model.charts.pie.PieChartModel;
 
+import co.edu.unbosque.model.AdminDTO;
 import co.edu.unbosque.model.Email;
 import co.edu.unbosque.model.UserDTO;
+import co.edu.unbosque.service.AdminService;
 import co.edu.unbosque.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -32,76 +34,85 @@ public class UserBean {
 	@Inject
 	private UserService userService;
 	private UserDTO newUser = new UserDTO();
-	private UserDTO userLoged;
 	private PieChartModel userPorCarreraChartModel = new PieChartModel();
+	@Inject
+	private AdminService adminService;
+	private AdminDTO newAdmin = new AdminDTO();
 
 	@PostConstruct
 	public void init() {
+		newAdmin = new AdminDTO();
+		newAdmin.setEmail("");
 		newUser = new UserDTO();
 		newUser.setEmail("");
 
 	}
 
-	public void loginTest() {
-		System.out.println("QUE RICO");
-		String usernameUser = usernameLogin;
-		String passwordUser = passwordLogin;
-
-		int aux = 0;
-
-		if (usernameUser.equals("test") || passwordUser.equals("test")) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecaartemisa.xhtml");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			aux++;
-		}
-		if (aux > 0) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "USUARIO O CONTRASEÑA INCORRECTAS"));
-		}
-	}
-
 	public void createUser() {
 
-		System.out.println("YA ENTRO");
-		// Verificar si el correo cumple con el patrón esperado
-		String correoUsuario = emailNew;
-		if (!validateEmail(correoUsuario)) {
+		String userSaludate = usernameNew;
+
+		if (!validateEmail(emailNew)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
 					"El correo debe terminar en @unbosque.edu.co"));
 			return;
 		}
-		if (userService.userExist(correoUsuario)) {
+		if (userService.userExist(usernameNew) || adminService.userExist(usernameNew)) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-					"Ya existe un usuario registrado con este correo electrónico"));
+					"Ya existe un usuario registrado con este nombre de usuario"));
 			return;
 		}
-		newUser.setId(0);
-		newUser.setUsername(usernameNew);
-		newUser.setPassword(passwordNew);
-		newUser.setEmail(emailNew);
+		if (emailNew.equals("dferodriguezc@unbosque.edu.co") || emailNew.equals("ccdiazr@unbosque.edu.co")
+				|| emailNew.equals("enmesa@unbosque.edu.co") || emailNew.equals("lvlarar@unbosque.edu.co")
+				|| emailNew.equals("gwakil@unbosque.edu.co") || emailNew.equals("asrueda@unbosque.edu.co")) {
+			newAdmin.setId(0);
+			newAdmin.setUsername(usernameNew);
+			newAdmin.setPassword(passwordNew);
+			newAdmin.setEmail(emailNew);
 
-		System.out.println(usernameNew);
-		System.out.println(passwordNew);
-		System.out.println(emailNew);
-		System.out.println("----------");
+			adminService.create(newAdmin);
 
-		userService.create(newUser);
-		Email email = new Email(correoUsuario, "Bienvenido a Biblioteca Artemisa",
-				"¡Gracias por registrarte en Biblioteca Artemisa!");
-		emailSenderBean.setEmail(email);
-		emailSenderBean.sendEmail();
-		// tabla.saveUser();
-		newUser = new UserDTO();
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("mainpage.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
+			Email email = new Email(emailNew, "Bienvenido a Biblioteca Artemisa", "Hola! " + userSaludate
+					+ " ¡Gracias por registrarte en Biblioteca Artemisa! Ahora eres un NUEVO ADMINISTRADOR");
+			emailSenderBean.setEmail(email);
+			emailSenderBean.sendEmail();
+			// tabla.saveUser();
+			newUser = new UserDTO();
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecartemisaAdmin.xhtml");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			newUser.setId(0);
+			newUser.setUsername(usernameNew);
+			newUser.setPassword(passwordNew);
+			newUser.setEmail(emailNew);
+
+			System.out.println(usernameNew);
+			System.out.println(passwordNew);
+			System.out.println(emailNew);
+			System.out.println("----------");
+
+			userService.create(newUser);
+			Email email = new Email(emailNew, "Bienvenido a Biblioteca Artemisa",
+					"Hola! " + userSaludate + " Gracias por registrarte en Biblioteca Artemisa!");
+			emailSenderBean.setEmail(email);
+			emailSenderBean.sendEmail();
+			// tabla.saveUser();
+			newUser = new UserDTO();
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecartemisa.xhtml");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+
+		usernameLogin = "";
+		passwordLogin = "";
+		usernameNew = "";
+		passwordNew = "";
+		emailNew = "";
 
 	}
 
@@ -112,20 +123,34 @@ public class UserBean {
 		return matcher.matches();
 	}
 
-	public String logIn() {
-		boolean pass = userService.login(newUser.getEmail(), newUser.getPassword());
-		if (pass == true) {
-			// Inicio de sesión exitoso, redirigir a la página principal
-			return "bibliotecartemisa.xhtml?faces-redirect=true";
-
+	public void logIn() {
+		if (usernameLogin.equals("admin") && passwordLogin.equals("1234")
+				|| adminService.login(usernameLogin, passwordLogin)) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecartemisaAdmin.xhtml");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
-			// Inicio de sesión fallido, mostrar un mensaje de error
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Inicio de sesión fallido", "Correo electrónico o contraseña incorrectos"));
-			newUser.setEmail("");
-			newUser.setPassword("");
-			return null;
+			if (userService.login(usernameLogin, passwordLogin)) {
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect("bibliotecartemisa.xhtml");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"ERROR en el INICIO DE SESION", "Usuario o Contraseña INCORRECTOS"));
+			}
 		}
+		usernameLogin = "";
+		passwordLogin = "";
+		usernameNew = "";
+		passwordNew = "";
+		emailNew = "";
 	}
 
 	public String getUsernameNew() {
@@ -192,20 +217,28 @@ public class UserBean {
 		this.newUser = newUser;
 	}
 
-	public UserDTO getUserLoged() {
-		return userLoged;
-	}
-
-	public void setUserLoged(UserDTO userLoged) {
-		this.userLoged = userLoged;
-	}
-
 	public PieChartModel getUserPorCarreraChartModel() {
 		return userPorCarreraChartModel;
 	}
 
 	public void setUserPorCarreraChartModel(PieChartModel userPorCarreraChartModel) {
 		this.userPorCarreraChartModel = userPorCarreraChartModel;
+	}
+
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+
+	public AdminDTO getNewAdmin() {
+		return newAdmin;
+	}
+
+	public void setNewAdmin(AdminDTO newAdmin) {
+		this.newAdmin = newAdmin;
 	}
 
 }

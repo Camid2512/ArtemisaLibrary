@@ -33,7 +33,8 @@ public class AdminDAO {
 		// TODO Auto-generated method stub
 		try {
 			open();
-			em.getTransaction();
+			em.getTransaction().begin();
+			;
 			em.persist(obj);
 			em.getTransaction().commit();
 
@@ -56,7 +57,7 @@ public class AdminDAO {
 	public ArrayList<Admin> readAll() {
 		open();
 		try {
-			return (ArrayList<Admin>) em.createQuery("select p from libraryadmin p").getResultList();
+			return (ArrayList<Admin>) em.createQuery("select p from Admin p").getResultList();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
