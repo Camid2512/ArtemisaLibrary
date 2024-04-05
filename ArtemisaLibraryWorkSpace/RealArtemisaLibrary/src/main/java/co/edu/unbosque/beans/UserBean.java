@@ -387,6 +387,11 @@ public class UserBean {
 		return adminService;
 	}
 
+	/**
+	 * Set del atributo adminServicee
+	 * 
+	 * @param adminService
+	 */
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}

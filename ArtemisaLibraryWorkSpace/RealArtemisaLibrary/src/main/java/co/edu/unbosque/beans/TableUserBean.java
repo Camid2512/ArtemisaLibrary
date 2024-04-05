@@ -46,7 +46,6 @@ public class TableUserBean implements Serializable {
 	 * Atributo que llama a la clase UserDTO
 	 */
 	private UserDTO userSelected;
-	
 
 	/**
 	 * Atributo que llama la lista de los usuarios seleccionados en la tabla
@@ -54,8 +53,8 @@ public class TableUserBean implements Serializable {
 	private List<UserDTO> userSelectedMany;
 
 	/**
-	 * Constructor que inicializa la lista de los usuarios al momento de cargar por primera
-	 * vez la pagina
+	 * Constructor que inicializa la lista de los usuarios al momento de cargar por
+	 * primera vez la pagina
 	 */
 	@PostConstruct
 	public void init() {
@@ -102,6 +101,11 @@ public class TableUserBean implements Serializable {
 		PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
 	}
 
+	/**
+	 * Funcion que revisa si existe algun usuario seleccionado
+	 * 
+	 * @return "Eliminado"  
+	 */
 	public String getDeleteButtonMessage() {
 		if (hasSelectedProducts()) {
 			int size = this.userSelectedMany.size();
@@ -110,6 +114,7 @@ public class TableUserBean implements Serializable {
 
 		return "Eliminado";
 	}
+
 	/**
 	 * Funcion que revisa si existen usuarios selecionados
 	 * 
@@ -141,7 +146,7 @@ public class TableUserBean implements Serializable {
 	public UserService getUserService() {
 		return userService;
 	}
-	
+
 	/**
 	 * Set del atributo userService
 	 * 
@@ -168,7 +173,7 @@ public class TableUserBean implements Serializable {
 	public void setUserTable(List<UserDTO> userTable) {
 		this.userTable = userTable;
 	}
-	
+
 	/**
 	 * Get del atributo userSelected
 	 * 
