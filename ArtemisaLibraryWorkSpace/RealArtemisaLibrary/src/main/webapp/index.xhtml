@@ -20,9 +20,9 @@
 
 </h:head>
 <h:body>
-
-
-
+	<div class="containerimg">
+		<img id="logo" src="assets/logo (2).png" alt="Biblioteca logo"></img>
+	</div>
 	<div class="container">
 		<div class="backbox">
 			<div class="loginMsg">
@@ -79,8 +79,15 @@
 		</div>
 		<!-- frontbox -->
 	</div>
-
+	<div class="containervideo">
+		<p:video value="assets/TutorialProg2.mp4" player="mp4" controls="true"
+			width="420" height="250" onplay="console.log('MP4 Started Playing')"
+			onpause="console.log('MP4 Stopped Playing')">
+        Your browser does not support the video element.
+        See: <h:outputLink
+				value="https://www.w3schools.com/html/html5_video.asp">HTML5 Video</h:outputLink>
+		</p:video>
+	</div>
 	<script src="js/scriptinicio.js"></script>
-
 </h:body>
 </html>

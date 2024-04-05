@@ -26,32 +26,66 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Clase que permite la integracion entre el back y el front
+ * 
+ * @author Santiago Rueda
+ * @version 1.0
+ * @since 01/04/2024
+ */
+
 @Named("cplusBean")
 @SessionScoped
 public class CPLUSBean implements Serializable {
 
+	/**
+	 * Atributo que llama a la clase CPLUSService
+	 */
 	@Inject
 	private CPLUSService cplusService;
 
+	/**
+	 * Identificador unico de la version de la clase para la serialización.
+	 */
 	private static final long serialVersionUID = 4607905883171191425L;
-	private List<CPLUSTopicDTO> topicsInTable;
-	private CPLUSTopicDTO selectedTopic;
-	private List<CPLUSTopicDTO> variousSelectedTopics;
-	private Exporter<DataTable> textExporter;
 
+	/**
+	 * Atributo que llama la lista de los temas en la tabla
+	 */
+	private List<CPLUSTopicDTO> topicsInTable;
+
+	/**
+	 * Atributo que llamma a la clase CPLUSTopicDTO
+	 */
+	private CPLUSTopicDTO selectedTopic;
+
+	/**
+	 * Atributo que llama la lista de los temas seleccionados en la tabla
+	 */
+	private List<CPLUSTopicDTO> variousSelectedTopics;
+
+	/**
+	 * Constructor que inicializa la lista de temas al momento de cargar por primera
+	 * vez la pagina
+	 */
 	@PostConstruct
 	public void init() {
 		this.topicsInTable = new ArrayList<>();
 		this.topicsInTable = cplusService.getTopics();
 		this.variousSelectedTopics = new ArrayList<CPLUSTopicDTO>();
-		textExporter = new TextExporter();
 
 	}
 
+	/**
+	 * Funcion para iniciar la creacion de un nuevo DTO
+	 */
 	public void openNew() {
 		this.selectedTopic = new CPLUSTopicDTO();
 	}
 
+	/**
+	 * Funcion que permite guardar un tema en la base de datos
+	 */
 	public void saveTopic() {
 		if (this.selectedTopic.getId() == 0) {
 			this.selectedTopic.setId(0);
@@ -67,6 +101,9 @@ public class CPLUSBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que permite eliminar un tema en la base de datos
+	 */
 	public void deleteTopic() {
 		cplusService.delete(this.selectedTopic.getId());
 		this.variousSelectedTopics.remove(this.selectedTopic);
@@ -78,6 +115,11 @@ public class CPLUSBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que revisa cuantos temas seleccionados seran eliminados
+	 * 
+	 * @return "Eliminado"
+	 */
 	public String getDeleteButtonMessage() {
 		if (hasSelectedTopics()) {
 			int size = this.variousSelectedTopics.size();
@@ -86,12 +128,20 @@ public class CPLUSBean implements Serializable {
 		return "Eliminado";
 	}
 
+	/**
+	 * Funcion que revisa si existen temas selecionados
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasSelectedTopics() {
 
 		return this.variousSelectedTopics != null && !this.variousSelectedTopics.isEmpty();
 
 	}
 
+	/**
+	 * Funcion que permite eliminar temas selecionados
+	 */
 	public void deleteSelectedTopics() {
 
 		for (CPLUSTopicDTO cplusTopicDTO : variousSelectedTopics) {
@@ -108,6 +158,11 @@ public class CPLUSBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que exporta la tabla de todos los datos registrados a un pdf
+	 * 
+	 * @throws com.itextpdf.text.DocumentException
+	 */
 	public void exportToPDF() throws com.itextpdf.text.DocumentException {
 		Document document = new Document();
 		try {
@@ -163,56 +218,104 @@ public class CPLUSBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Funcion que permite obtener todo el ArrayList del DTO para luego colocar la
+	 * informacion en la tabla
+	 * 
+	 * @return topicsInTable
+	 */
 	public List<CPLUSTopicDTO> getProducts() {
 		return topicsInTable;
 	}
 
+	/**
+	 * Funcion que permite modificar todo el ArrayList del DTO para luego colocar la
+	 * informacion en la tabla
+	 * 
+	 * @param products
+	 */
 	public void setProducts(List<CPLUSTopicDTO> products) {
 		this.topicsInTable = products;
 	}
 
+	/**
+	 * Get del atributo cplusService
+	 * 
+	 * @return cplusService
+	 */
 	public CPLUSService getCplusService() {
 		return cplusService;
 	}
 
+	/**
+	 * Set del atributo cplusService
+	 * 
+	 * @param cplusService
+	 */
 	public void setCplusService(CPLUSService cplusService) {
 		this.cplusService = cplusService;
 	}
 
+	/**
+	 * Get del atributo topicsInTable
+	 * 
+	 * @return
+	 */
 	public List<CPLUSTopicDTO> getTopicsInTable() {
 		return topicsInTable;
 	}
 
+	/**
+	 * Set del atributo topicsInTable
+	 * 
+	 * @param topicsInTable
+	 */
 	public void setTopicsInTable(List<CPLUSTopicDTO> topicsInTable) {
 		this.topicsInTable = topicsInTable;
 	}
 
+	/**
+	 * Get del atibuto selectedTopic
+	 * 
+	 * @return selectedTopic
+	 */
 	public CPLUSTopicDTO getSelectedTopic() {
 		return selectedTopic;
 	}
 
+	/**
+	 * Set del atributo selectedTopic
+	 * 
+	 * @param selectedTopic
+	 */
 	public void setSelectedTopic(CPLUSTopicDTO selectedTopic) {
 		this.selectedTopic = selectedTopic;
 	}
+
+	/**
+	 * Get del atributo variousSelectedTopic
+	 * 
+	 * @return variousSelectedTopics
+	 */
 
 	public List<CPLUSTopicDTO> getVariousSelectedTopics() {
 		return variousSelectedTopics;
 	}
 
+	/**
+	 * Set del atributo variousSelectedTopic
+	 * 
+	 * @param variousSelectedTopics
+	 */
 	public void setVariousSelectedTopics(List<CPLUSTopicDTO> variousSelectedTopics) {
 		this.variousSelectedTopics = variousSelectedTopics;
 	}
 
+	/**
+	 * Obtiene el valor del serialVersionUID.
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public Exporter<DataTable> getTextExporter() {
-		return textExporter;
-	}
-
-	public void setTextExporter(Exporter<DataTable> textExporter) {
-		this.textExporter = textExporter;
 	}
 
 }
