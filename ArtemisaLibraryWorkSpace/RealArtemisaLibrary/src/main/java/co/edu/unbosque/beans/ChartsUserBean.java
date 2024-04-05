@@ -1,6 +1,7 @@
 package co.edu.unbosque.beans;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,30 +27,64 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Clase que permite la gestion de graficos de barra y de pastel de los temas en
+ * los diferentes lenguaes de programacion
+ * 
+ * @author Saniago Rueda
+ * @version 1.0
+ * @since 01/04/2024
+ */
 @Named("chartsUserBean")
 @SessionScoped
 public class ChartsUserBean implements Serializable {
 
+	/**
+	 * Identificador unico de la version de la clase para la serialización.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Atributo que llama a la clase CPLUSService
+	 */
 	@Inject
 	private CPLUSService cPlusService;
 
+	/**
+	 * Atributo que llama a la clase JavaTopicService
+	 */
 	@Inject
 	private JavaTopicService javaService;
 
+	/**
+	 * Atributo que llama a la clase PythonTopicService
+	 */
 	@Inject
 	private PythonTopicService pythonService;
 
+	/**
+	 * Atributo que llama a la clase BarChartModel
+	 */
 	private BarChartModel barModel;
+
+	/**
+	 * Atributo que llama a la clase PieChartModel
+	 */
 	private PieChartModel pieModel;
 
+	/**
+	 * Constructor que inicializa la grafica de barras y la de pastel
+	 */
 	@PostConstruct
 	public void init() {
 		createBarModel();
 		createPieModel();
 	}
 
+	/**
+	 * Funcion que permite crear la tabla respecto a la grafica de barrras de los
+	 * usuarios que estan registrados en la biblioteca
+	 */
 	public void createBarModel() {
 		barModel = new BarChartModel();
 		ChartData data = new ChartData();
@@ -137,6 +172,10 @@ public class ChartsUserBean implements Serializable {
 		barModel.setOptions(options);
 	}
 
+	/**
+	 * Funcion que permite crear la tabla respecto a la grafica de pastel de los
+	 * usuarios que estan registrados en la biblioteca
+	 */
 	public void createPieModel() {
 		pieModel = new PieChartModel();
 		ChartData data = new ChartData();
@@ -196,46 +235,99 @@ public class ChartsUserBean implements Serializable {
 		pieModel.setData(data);
 	}
 
+	/**
+	 * Get del atributo barModel
+	 * 
+	 * @return barModel
+	 */
 	public BarChartModel getBarModel() {
 		return barModel;
 	}
 
+	/**
+	 * Get del atributo cPlusService
+	 * 
+	 * @return cPlusService
+	 */
 	public CPLUSService getcPlusService() {
 		return cPlusService;
 	}
 
+	/**
+	 * Set del atributo cPlusService
+	 * 
+	 * @param cPlusService
+	 */
 	public void setcPlusService(CPLUSService cPlusService) {
 		this.cPlusService = cPlusService;
 	}
 
+	/**
+	 * Get del atributo javaService
+	 * 
+	 * @return javaService
+	 */
 	public JavaTopicService getJavaService() {
 		return javaService;
 	}
 
+	/**
+	 * Set del atributo javaService
+	 * 
+	 * @param javaService
+	 */
 	public void setJavaService(JavaTopicService javaService) {
 		this.javaService = javaService;
 	}
 
+	/**
+	 * Get del atributo pythonService
+	 * 
+	 * @return pythonService
+	 */
 	public PythonTopicService getPythonService() {
 		return pythonService;
 	}
 
+	/**
+	 * Set del atributo pythonService
+	 * 
+	 * @param pythonService
+	 */
 	public void setPythonService(PythonTopicService pythonService) {
 		this.pythonService = pythonService;
 	}
 
+	/**
+	 * Obtiene el valor del serialVersionUID.
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/**
+	 * Set del atributo barModel
+	 * 
+	 * @param barModel
+	 */
 	public void setBarModel(BarChartModel barModel) {
 		this.barModel = barModel;
 	}
 
+	/**
+	 * Get del atributo pieModel
+	 * 
+	 * @return pieModel
+	 */
 	public PieChartModel getPieModel() {
 		return pieModel;
 	}
 
+	/**
+	 * Set del atributo pieModel
+	 * 
+	 * @param pieModel
+	 */
 	public void setPieModel(PieChartModel pieModel) {
 		this.pieModel = pieModel;
 	}

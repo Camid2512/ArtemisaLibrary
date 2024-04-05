@@ -24,18 +24,47 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Clase que permite la integracion entre el back y el front
+ * 
+ * @author Erika Mesa
+ * @version 1.0
+ * @since 01/04/2024
+ */
 @Named("javaBean")
 @SessionScoped
 public class JavaBean implements Serializable {
 
+	/**
+	 * Atributo que llama a la clase javaService
+	 */
 	@Inject
 	private JavaTopicService javaService;
 
+	/**
+	 * Identificador unico de la version de la clase para la serialización.
+	 */
 	private static final long serialVersionUID = 4607905883171191425L;
+
+	/**
+	 * Atributo que llama la lista de los temas en la tabla
+	 */
 	private List<JavaTopicDTO> topicsInTable;
+
+	/**
+	 * Atributo que llamma a la clase JavaTopicDTO
+	 */
 	private JavaTopicDTO selectedTopic;
+
+	/**
+	 * Atributo que llama la lista de los temas seleccionados en la tabla
+	 */
 	private List<JavaTopicDTO> variousSelectedTopics;
 
+	/**
+	 * Constructor que inicializa la lista de temas al momento de cargar por primera
+	 * vez la pagina
+	 */
 	@PostConstruct
 	public void init() {
 		this.topicsInTable = new ArrayList<>();
@@ -44,10 +73,16 @@ public class JavaBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion para iniciar la creacion de un nuevo DTO
+	 */
 	public void openNew() {
 		this.selectedTopic = new JavaTopicDTO();
 	}
 
+	/**
+	 * Funcion que permite guardar un tema en la base de datos
+	 */
 	public void saveTopic() {
 		if (this.selectedTopic.getId() == 0) {
 			this.selectedTopic.setId(0);
@@ -63,6 +98,9 @@ public class JavaBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que permite eliminar un tema en la base de datos
+	 */
 	public void deleteTopic() {
 		javaService.delete(this.selectedTopic.getId());
 		this.variousSelectedTopics.remove(this.selectedTopic);
@@ -74,6 +112,11 @@ public class JavaBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que revisa cuantos temas seleccionados seran eliminados
+	 * 
+	 * @return "Eliminado"
+	 */
 	public String getDeleteButtonMessage() {
 		if (hasSelectedTopics()) {
 			int size = this.variousSelectedTopics.size();
@@ -82,12 +125,20 @@ public class JavaBean implements Serializable {
 		return "Eliminado";
 	}
 
+	/**
+	 * Funcion que revisa si existen temas selecionados
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasSelectedTopics() {
 
 		return this.variousSelectedTopics != null && !this.variousSelectedTopics.isEmpty();
 
 	}
 
+	/**
+	 * Funcion que permite eliminar temas selecionados
+	 */
 	public void deleteSelectedTopics() {
 
 		for (JavaTopicDTO javaTopicDTO : variousSelectedTopics) {
@@ -104,6 +155,11 @@ public class JavaBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que exporta la tabla de todos los datos registrados a un pdf
+	 * 
+	 * @throws com.itextpdf.text.DocumentException
+	 */
 	public void exportToPDF() throws com.itextpdf.text.DocumentException {
 		Document document = new Document();
 		try {
@@ -159,46 +215,101 @@ public class JavaBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Funcion que permite obtener todo el ArrayList del DTO para luego colocar la
+	 * informacion en la tabla
+	 * 
+	 * @return topicsInTable
+	 */
 	public List<JavaTopicDTO> getProducts() {
 		return topicsInTable;
 	}
 
+	/**
+	 * Funcion que permite modificar todo el ArrayList del DTO para luego colocar la
+	 * informacion en la tabla
+	 * 
+	 * @param products
+	 */
 	public void setProducts(List<JavaTopicDTO> products) {
 		this.topicsInTable = products;
 	}
 
+	/**
+	 * Get del atributo javaService
+	 * 
+	 * @return javaService
+	 */
 	public JavaTopicService getJavaService() {
 		return javaService;
 	}
 
+	/**
+	 * Set del atributo javaService
+	 * 
+	 * @param javaService
+	 */
 	public void setJavaService(JavaTopicService javaService) {
 		this.javaService = javaService;
 	}
 
+	/**
+	 * Get del atributo topicsInTable
+	 * 
+	 * @return topicsInTable
+	 */
 	public List<JavaTopicDTO> getTopicsInTable() {
 		return topicsInTable;
 	}
 
+	/**
+	 * Set del atributo topicsInTable
+	 * 
+	 * @param topicsInTable
+	 */
 	public void setTopicsInTable(List<JavaTopicDTO> topicsInTable) {
 		this.topicsInTable = topicsInTable;
 	}
 
+	/**
+	 * Get del atibuto selectedTopic
+	 * 
+	 * @return selectedTopic
+	 */
 	public JavaTopicDTO getSelectedTopic() {
 		return selectedTopic;
 	}
 
+	/**
+	 * Set del atributo selectedTopic
+	 * 
+	 * @param selectedTopic
+	 */
 	public void setSelectedTopic(JavaTopicDTO selectedTopic) {
 		this.selectedTopic = selectedTopic;
 	}
 
+	/**
+	 * Get del atributo variousSelectedTopic
+	 * 
+	 * @return variousSelectedTopics
+	 */
 	public List<JavaTopicDTO> getVariousSelectedTopics() {
 		return variousSelectedTopics;
 	}
 
+	/**
+	 * Set del atributo variousSelectedTopic
+	 * 
+	 * @param variousSelectedTopics
+	 */
 	public void setVariousSelectedTopics(List<JavaTopicDTO> variousSelectedTopics) {
 		this.variousSelectedTopics = variousSelectedTopics;
 	}
 
+	/**
+	 * Obtiene el valor del serialVersionUID.
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

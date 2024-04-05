@@ -7,15 +7,40 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+/**
+ * Esta clase proporciona funcionalidades CRUD (crear, leer, actualizar y
+ * eliminar) para objetos
+ * 
+ * @author Cristhian Diaz
+ * @version 1.0
+ * @since 28/03/2024
+ *
+ */
+
 public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
+
+	/**
+	 * Atributo EntityManager permite interactuar con la unidad de persistencia.
+	 */
 	public EntityManagerFactory emf;
+
+	/**
+	 * Atributo EntityManager permite realizar operaciones en la base de datos
+	 */
 	public EntityManager em;
 
+	/**
+	 * Constructor que inicializa EntityManager y EntityManager
+	 * 
+	 */
 	public CPLUSTopicDAO() {
 		emf = Persistence.createEntityManagerFactory("default");
 		em = emf.createEntityManager();
 	}
 
+	/**
+	 * Funcion que abre una conexion a la base de datos
+	 */
 	public void open() {
 		if (!emf.isOpen() || !em.isOpen()) {
 			emf = Persistence.createEntityManagerFactory("default");
@@ -23,6 +48,9 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 		}
 	}
 
+	/**
+	 * Funcion para crear un registro en la base de datos
+	 */
 	@Override
 	public void create(CPLUSTopic obj) {
 		try {
@@ -42,6 +70,11 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 		}
 
 	}
+
+	/**
+	 * Funcion que permite la eliminacion de un registro en la base de datos por su
+	 * id
+	 */
 
 	@Override
 	public boolean delete(long id) {
@@ -65,6 +98,11 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 		return false;
 
 	}
+
+	/**
+	 * Funcion que permite la actualizacion de un registro en la base de datos por
+	 * su id
+	 */
 
 	@Override
 	public boolean update(long id, CPLUSTopic obj) {
@@ -98,6 +136,12 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 
 	}
 
+	/**
+	 * Funcion que toma todos los registros de la base de datos y los almacena en un
+	 * ArrayList
+	 * 
+	 * @return ArrayList
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<CPLUSTopic> readAll() {
@@ -119,6 +163,11 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 		return new ArrayList<CPLUSTopic>();
 
 	}
+
+	/**
+	 * Funcion que permite buscar un registro en espefico de la base de datos, por
+	 * su id
+	 */
 
 	@Override
 	public CPLUSTopic findOne(long id) {
@@ -142,6 +191,9 @@ public class CPLUSTopicDAO implements CRUDOperation<CPLUSTopic> {
 
 	}
 
+	/**
+	 * Funcion que permite contar el numero total de registros en la base de datos
+	 */
 	@Override
 	public int count() {
 		// TODO Auto-generated method stub

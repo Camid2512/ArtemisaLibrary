@@ -24,18 +24,47 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Clase que permite la integracion entre el back y el front
+ * 
+ * @author Erika Mesa
+ * @version 1.0
+ * @since 01/04/2024
+ */
 @Named("pythonBean")
 @SessionScoped
 public class PythonBean implements Serializable {
 
+	/**
+	 * Atributo que llama a la clase pythonService
+	 */
 	@Inject
 	private PythonTopicService pythonService;
 
+	/**
+	 * Identificador unico de la version de la clase para la serialización.
+	 */
 	private static final long serialVersionUID = 4607905883171191425L;
+
+	/**
+	 * Atributo que llama la lista de los temas en la tabla
+	 */
 	private List<PythonTopicDTO> topicsInTable;
+
+	/**
+	 * Atributo que llamma a la clase PythonTopicDTO
+	 */
 	private PythonTopicDTO selectedTopic;
+
+	/**
+	 * Atributo que llama la lista de los temas seleccionados en la tabla
+	 */
 	private List<PythonTopicDTO> variousSelectedTopics;
 
+	/**
+	 * Constructor que inicializa la lista de temas al momento de cargar por primera
+	 * vez la pagina
+	 */
 	@PostConstruct
 	public void init() {
 		this.topicsInTable = new ArrayList<>();
@@ -44,10 +73,16 @@ public class PythonBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion para iniciar la creacion de un nuevo DTO
+	 */
 	public void openNew() {
 		this.selectedTopic = new PythonTopicDTO();
 	}
 
+	/**
+	 * Funcion que permite guardar un tema en la base de datos
+	 */
 	public void saveTopic() {
 		if (this.selectedTopic.getId() == 0) {
 			this.selectedTopic.setId(0);
@@ -63,6 +98,9 @@ public class PythonBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que permite eliminar un tema en la base de datos
+	 */
 	public void deleteTopic() {
 		pythonService.delete(this.selectedTopic.getId());
 		this.variousSelectedTopics.remove(this.selectedTopic);
@@ -74,6 +112,11 @@ public class PythonBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que revisa cuantos temas seleccionados seran eliminados
+	 * 
+	 * @return "Eliminado"
+	 */
 	public String getDeleteButtonMessage() {
 		if (hasSelectedTopics()) {
 			int size = this.variousSelectedTopics.size();
@@ -82,12 +125,20 @@ public class PythonBean implements Serializable {
 		return "Eliminado";
 	}
 
+	/**
+	 * Funcion que revisa si existen temas selecionados
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasSelectedTopics() {
 
 		return this.variousSelectedTopics != null && !this.variousSelectedTopics.isEmpty();
 
 	}
 
+	/**
+	 * Funcion que permite eliminar temas selecionados
+	 */
 	public void deleteSelectedTopics() {
 
 		for (PythonTopicDTO pythonTopicDTO : variousSelectedTopics) {
@@ -104,6 +155,11 @@ public class PythonBean implements Serializable {
 
 	}
 
+	/**
+	 * Funcion que exporta la tabla de todos los datos registrados a un pdf
+	 * 
+	 * @throws com.itextpdf.text.DocumentException
+	 */
 	public void exportToPDF() throws com.itextpdf.text.DocumentException {
 		Document document = new Document();
 		try {
@@ -159,46 +215,101 @@ public class PythonBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Funcion que permite obtener todo el ArrayList del DTO para luego colocar la
+	 * informacion en la tabla
+	 * 
+	 * @return topicsInTable
+	 */
 	public List<PythonTopicDTO> getProducts() {
 		return topicsInTable;
 	}
 
+	/**
+	 * Funcion que permite modificar todo el ArrayList del DTO para luego colocar la
+	 * informacion en la tabla
+	 * 
+	 * @param products
+	 */
 	public void setProducts(List<PythonTopicDTO> products) {
 		this.topicsInTable = products;
 	}
 
+	/**
+	 * Get del atributo pythonService
+	 * 
+	 * @return pythonService
+	 */
 	public PythonTopicService getPythonService() {
 		return pythonService;
 	}
 
+	/**
+	 * Set del atributo pythonService
+	 * 
+	 * @param pythonService
+	 */
 	public void setPythonService(PythonTopicService pythonService) {
 		this.pythonService = pythonService;
 	}
 
+	/**
+	 * Get del atributo topicsInTable
+	 * 
+	 * @return topicsInTable
+	 */
 	public List<PythonTopicDTO> getTopicsInTable() {
 		return topicsInTable;
 	}
 
+	/**
+	 * Set del atributo topicsInTable
+	 * 
+	 * @param topicsInTable
+	 */
 	public void setTopicsInTable(List<PythonTopicDTO> topicsInTable) {
 		this.topicsInTable = topicsInTable;
 	}
 
+	/**
+	 * Get del atibuto selectedTopic
+	 * 
+	 * @return selectedTopic
+	 */
 	public PythonTopicDTO getSelectedTopic() {
 		return selectedTopic;
 	}
 
+	/**
+	 * Set del atributo selectedTopic
+	 * 
+	 * @param selectedTopic
+	 */
 	public void setSelectedTopic(PythonTopicDTO selectedTopic) {
 		this.selectedTopic = selectedTopic;
 	}
 
+	/**
+	 * Get del atributo variousSelectedTopic
+	 * 
+	 * @return variousSelectedTopics
+	 */
 	public List<PythonTopicDTO> getVariousSelectedTopics() {
 		return variousSelectedTopics;
 	}
 
+	/**
+	 * Set del atributo variousSelectedTopic
+	 * 
+	 * @param variousSelectedTopics
+	 */
 	public void setVariousSelectedTopics(List<PythonTopicDTO> variousSelectedTopics) {
 		this.variousSelectedTopics = variousSelectedTopics;
 	}
 
+	/**
+	 * Obtiene el valor del serialVersionUID.
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

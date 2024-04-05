@@ -10,12 +10,38 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
+/**
+ * Esta clase presenta funcionalidades para enviar correos electronicos de bienvenida a los
+ * usuarios que ingresan a la biblioteca artemisa.
+ * 
+ * @author Cristhian Diaz
+ * @version 1.0
+ * @since 27/03/2024
+ * 
+ * 
+ */
 public class EmailSender {
 
+	/**
+	 * Variable estatica con el correo electronico del remitente.
+	 */
 	private static final String EMAIL_FROM = "softpylsa@gmail.com";
+	
+	/**
+	 * Variable estatica con el correo electronico del destinatario.
+	 */
 	private static final String EMAIL_TO = "";
+	
+	/**
+	 * Variable estatica con la contraseña del remitente. 
+	 */
 	private static final String APP_PASSWORD = "fais wmhr cuxj cbkr";
 
+	/**
+	 * Metodo principal para enviar un correo electrónico de bienvenida a un usuario.
+	 * 
+	 * @param args 
+	 */
 	public static void main(String[] args) {
 
 		Message message = new MimeMessage(getEmailSession());
@@ -31,6 +57,11 @@ public class EmailSender {
 
 	}
 
+	/**
+	 * Obtiene la sesion de correo electronico para enviar el mensaje.
+	 * 
+	 * @return 
+	 */
 	private static Session getEmailSession() {
 		return Session.getInstance(getGmailProperties(), new Authenticator() {
 
@@ -40,6 +71,11 @@ public class EmailSender {
 		});
 	}
 
+	/**
+	 * Obtiene las propiedades necesarias para la conexión SMTP de Gmail.
+	 * 
+	 * @return properties
+	 */
 	private static Properties getGmailProperties() {
 
 		Properties prop = new Properties();

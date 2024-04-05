@@ -22,25 +22,51 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+/**
+ * Clase que permite gestionar las graficas del administrador
+ * 
+ * @author Santiago Rueda
+ * @version 1.0
+ * @since 01/04/2024
+ */
 @Named("chartsAdminBean")
 @SessionScoped
 public class ChartsAdminBean implements Serializable {
 
+	/**
+	 * Identificador unico de la version de la clase para la serialización.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Atributo que llama a la clase UserService
+	 */
 	@Inject
 	private UserService uService;
 
+	/**
+	 * Atributo que llama a la clase AdminService
+	 */
 	@Inject
 	private AdminService aService;
 
+	/**
+	 * Atributo que llama a la clase BarChartModel
+	 */
 	private BarChartModel barModel2;
 
+	/**
+	 * Constructor que inicializa la grafica
+	 */
 	@PostConstruct
 	public void init() {
 		createBarModel2();
 	}
 
+	/**
+	 * Funcion que permite crear la tabla respecto a la grafica de barrras de los
+	 * usuarios que estan registrados en la biblioteca
+	 */
 	public void createBarModel2() {
 		barModel2 = new BarChartModel();
 		ChartData data = new ChartData();
@@ -120,30 +146,63 @@ public class ChartsAdminBean implements Serializable {
 		barModel2.setOptions(options);
 	}
 
+	/**
+	 * Get del atributo uService
+	 * 
+	 * @return uService
+	 */
 	public UserService getuService() {
 		return uService;
 	}
 
+	/**
+	 * Set del atributo uService
+	 * 
+	 * @param uService
+	 */
 	public void setuService(UserService uService) {
 		this.uService = uService;
 	}
 
+	/**
+	 * Get del atributo aService
+	 * 
+	 * @return uService
+	 */
 	public AdminService getaService() {
 		return aService;
 	}
 
+	/**
+	 * Set del atributo aService
+	 * 
+	 * @param aService
+	 */
 	public void setaService(AdminService aService) {
 		this.aService = aService;
 	}
 
+	/**
+	 * Get del atributo barModel2
+	 * 
+	 * @return barModel2
+	 */
 	public BarChartModel getBarModel2() {
 		return barModel2;
 	}
 
+	/**
+	 * Set del atributo barModel2
+	 * 
+	 * @param uService
+	 */
 	public void setBarModel2(BarChartModel barModel2) {
 		this.barModel2 = barModel2;
 	}
 
+	/**
+	 * Obtiene el valor del serialVersionUID.
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

@@ -7,15 +7,38 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+/**
+ * Esta clase proporciona funcionalidades CRUD (crear, leer, actualizar y
+ * eliminar) para objetos
+ * 
+ * @author Gabriela Wakil
+ * @version 1.0
+ * @since 31/03/2024
+ *
+ */
 public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
+	/**
+	 * Atributo EntityManager permite interactuar con la unidad de persistencia.
+	 */
 	public EntityManagerFactory emf;
+
+	/**
+	 * Atributo EntityManager permite realizar operaciones en la base de datos
+	 */
 	public EntityManager em;
 
+	/**
+	 * Constructor que inicializa EntityManager y EntityManager
+	 * 
+	 */
 	public PythonTopicDAO() {
 		emf = Persistence.createEntityManagerFactory("default");
 		em = emf.createEntityManager();
 	}
 
+	/**
+	 * Funcion que abre una conexion a la base de datos
+	 */
 	public void open() {
 		if (!emf.isOpen() || !em.isOpen()) {
 			emf = Persistence.createEntityManagerFactory("default");
@@ -23,6 +46,11 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 		}
 	}
 
+	/**
+	 * Funcion para crear un registro en la base de datos
+	 * 
+	 * @param obj
+	 */
 	@Override
 	public void create(PythonTopic obj) {
 		try {
@@ -43,6 +71,12 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 
 	}
 
+	/**
+	 * Funcion para eliminar un registro en la base de datos, con su id
+	 * 
+	 * @param id
+	 * @return true or false
+	 */
 	@Override
 	public boolean delete(long id) {
 		open();
@@ -66,6 +100,13 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 
 	}
 
+	/**
+	 * Funcion para actualizar un registro en la base de datos, con su id
+	 * 
+	 * @param id
+	 * @param obj
+	 * @return true or false
+	 */
 	@Override
 	public boolean update(long id, PythonTopic obj) {
 		// TODO Auto-generated method stub
@@ -98,6 +139,12 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 
 	}
 
+	/**
+	 * Funcion que toma todos los registros de la case de datos y los almacena en un
+	 * ArrayList
+	 * 
+	 * @return ArrayList
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<PythonTopic> readAll() {
@@ -120,6 +167,12 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 
 	}
 
+	/**
+	 * Funcion para buscar un registro en especifico de la base detos, por su id
+	 * 
+	 * @param id
+	 * @return ArrayList
+	 */
 	@Override
 	public PythonTopic findOne(long id) {
 		// TODO Auto-generated method stub
@@ -142,6 +195,9 @@ public class PythonTopicDAO implements CRUDOperation<PythonTopic> {
 
 	}
 
+	/**
+	 * Funcion que permite contar el numero total de registros en la base de datos
+	 */
 	@Override
 	public int count() {
 		// TODO Auto-generated method stub

@@ -15,18 +15,38 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
+/**
+ * Esta clase permite enviar correor electronicos
+ * 
+ * @author Erika Mesa
+ * @version 1.0
+ * @since 01/04/2024
+ */
 @Named("emailSenderBean")
 @SessionScoped
 public class EmailSenderBean implements Serializable {
 
+	/**
+	 * Identificador unico de la version de la clase para la serialización.
+	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Inicializacion con un nuevo objeto email
+	 */
 	private Email email = new Email();
 
+	/**
+	 * Funcion que permite obtener el email proporcionado
+	 * @return email
+	 */
 	public Email getEmail() {
 		return email;
 	}
 
+	/**
+	 * Funcion que permite enviar el email proporcionado
+	 */
 	public void sendEmail() {
 		Properties prop = new Properties();
 		prop.put("mail.smtp.auth", "true");
@@ -53,10 +73,17 @@ public class EmailSenderBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Obtiene el valor del serialVersionUID.
+	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	/**
+	 * Set del atributo email
+	 * @param email
+	 */
 	public void setEmail(Email email) {
 		this.email = email;
 	}

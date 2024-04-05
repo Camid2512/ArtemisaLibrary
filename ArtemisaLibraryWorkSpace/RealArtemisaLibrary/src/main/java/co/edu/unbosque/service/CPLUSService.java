@@ -10,13 +10,33 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
+/**
+ * La clase CPLUSService proporciona operaciones para temas de C++ de la biblioteca,
+ * se encarga de la creacion, lectura, actualizacion y eliminacion de los temas
+ * tambien la conversion entre objetos DTO y entidades, usa CPLUSTopicDAO para interactuar
+ * con la capa de persistencia.
+ * 
+ * @author Gabriella Wakil
+ * @version 1.0
+ * @since 31/03/2024
+ */
 @Named
 @ApplicationScoped
 public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 
+	/**
+	 * Lista de objetos CPLUSTopicDTO que representa los temas de C++.
+	 */
 	private List<CPLUSTopicDTO> topics;
+	
+	/**
+	 * Objeto CPLUSTopicDAO interactua con la capa de persistencia de los temas de C++.
+	 */
 	private CPLUSTopicDAO cPLUSDAO = new CPLUSTopicDAO();
 
+	/**
+	 * Inicializa la instancia CPLUSTopicDAO y carga la lista de temas.
+	 */
 	@PostConstruct
 	public void init() {
 		cPLUSDAO = new CPLUSTopicDAO();
@@ -24,6 +44,12 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 		topics = readAll();
 	}
 
+	/**
+	 * Convierte un objeto topic en un objeto CPLUSTopicDTO.
+	 * 
+	 * @param topic
+	 * @return CPLUSTopicDTO
+	 */
 	public CPLUSTopicDTO toDTO(CPLUSTopic topic) {
 
 		CPLUSTopicDTO dto = new CPLUSTopicDTO();
@@ -36,6 +62,11 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 
 	}
 
+	/**
+	 * Convierte un objeto CPLUSTopicDTO en un objeto topic.
+	 * @param topic
+	 * @return entity
+	 */
 	public CPLUSTopic toEntity(CPLUSTopicDTO topic) {
 
 		CPLUSTopic entity = new CPLUSTopic();
@@ -48,6 +79,11 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 
 	}
 
+	/**
+	 * Obtiene una lista de temas limitada.
+	 * @param size
+	 * @return topics
+	 */
 	public List<CPLUSTopicDTO> getTopics(int size) {
 
 		if (size > topics.size()) {
@@ -62,6 +98,10 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 
 	}
 
+	/*
+	 * Crea un nuevo tema en la base de datos
+	 * y actualiza la lista de temas.
+	 */
 	@Override
 	public void create(CPLUSTopicDTO obj) {
 		// TODO Auto-generated method stub
@@ -71,6 +111,9 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 
 	}
 
+	/**
+	 * Elimina un tema de la base de datos.
+	 */
 	@Override
 	public boolean delete(long id) {
 		// TODO Auto-generated method stub
@@ -79,6 +122,9 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 		return result;
 	}
 
+	/**
+	 * Actualiza la info de un tema de la base de datos.
+	 */
 	@Override
 	public boolean update(long id, CPLUSTopicDTO obj) {
 		// TODO Auto-generated method stub
@@ -87,6 +133,9 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 		return result;
 	}
 
+	/**
+	 * Lee todos los temas en la base de datos 
+	 */
 	@Override
 	public List<CPLUSTopicDTO> readAll() {
 		// TODO Auto-generated method stub
@@ -99,6 +148,9 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 		return topics;
 	}
 
+	/**
+	 * Busca un tema por su id en la base de datos.
+	 */
 	@Override
 	public CPLUSTopicDTO findOne(long id) {
 		// TODO Auto-generated method stub
@@ -106,18 +158,34 @@ public class CPLUSService implements ServiceOperation<CPLUSTopicDTO> {
 		return find;
 	}
 
+	/**
+	 * Obtiene la lista de temas.
+	 * @return topics
+	 */
 	public List<CPLUSTopicDTO> getTopics() {
 		return topics;
 	}
 
+	/**
+	 * Establece la lista de temas.
+	 * @param topics
+	 */
 	public void setTopics(List<CPLUSTopicDTO> topics) {
 		this.topics = topics;
 	}
 
+	/**
+	 * Obtiene el objeto CPLUSTopicDAO.
+	 * @return cPLUSDAO
+	 */
 	public CPLUSTopicDAO getcPLUSDAO() {
 		return cPLUSDAO;
 	}
 
+	/**
+	 * Establece el objeto CPLUSTopicDAO.
+	 * @param cPLUSDAO
+	 */
 	public void setcPLUSDAO(CPLUSTopicDAO cPLUSDAO) {
 		this.cPLUSDAO = cPLUSDAO;
 	}

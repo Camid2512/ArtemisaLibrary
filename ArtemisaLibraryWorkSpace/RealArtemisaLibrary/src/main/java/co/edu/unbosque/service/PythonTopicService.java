@@ -10,13 +10,33 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
+/**
+ * La clase PythonTopicService proporciona operaciones operaciones para temas de Python de la biblioteca,
+ * se encarga de la creacion, lectura, actualizacion y eliminacion de los temas
+ * tambien la conversion entre objetos DTO y entidades, usa PythonTopicDAO para interactuar
+ * con la capa de persistencia.
+ * 
+ * @author Valentina Lara 
+ * @version 1.0
+ * @since 31/03/2024
+ */
 @Named
 @ApplicationScoped
 public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 
+	/**
+	 * Lista de objetos PythonTopicDTO que representa los temas de Python.
+	 */
 	private List<PythonTopicDTO> topics;
+	
+	/**
+	 * Objeto PythonTopicDAO interactua con la capa de persistencia de los temas de Python.
+	 */
 	private PythonTopicDAO pythonDAO = new PythonTopicDAO();
 
+	/**
+	 * Inicializa la instancia PythonTopicDAO y carga la lista de temas.
+	 */
 	@PostConstruct
 	public void init() {
 		pythonDAO = new PythonTopicDAO();
@@ -24,6 +44,11 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 		topics = readAll();
 	}
 
+	/**
+	 * Convierte un objeto topic en un objeto PythonTopicDTO.
+	 * @param topic
+	 * @return PythonTopicDTO
+	 */
 	public PythonTopicDTO toDTO(PythonTopic topic) {
 
 		PythonTopicDTO dto = new PythonTopicDTO();
@@ -36,6 +61,11 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 
 	}
 
+	/**
+	 * Convierte un objeto PythonTopicDTO en un objeto topic.
+	 * @param topic
+	 * @return entity
+	 */
 	public PythonTopic toEntity(PythonTopicDTO topic) {
 
 		PythonTopic entity = new PythonTopic();
@@ -48,6 +78,11 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 
 	}
 
+	/**
+	 * Obtiene una lista de temas limitada.
+	 * @param size
+	 * @return topics
+	 */
 	public List<PythonTopicDTO> getTopics(int size) {
 
 		if (size > topics.size()) {
@@ -62,6 +97,10 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 
 	}
 
+	/**
+	 * Crea un nuevo tema en la base de datos
+	 * y actualiza la lista de temas.
+	 */
 	@Override
 	public void create(PythonTopicDTO obj) {
 		// TODO Auto-generated method stub
@@ -71,6 +110,9 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 
 	}
 
+	/**
+	 * Elimina un tema de la base de datos.
+	 */
 	@Override
 	public boolean delete(long id) {
 		// TODO Auto-generated method stub
@@ -79,6 +121,9 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 		return result;
 	}
 
+	/**
+	 * Actualiza la info de un tema de la base de datos.
+	 */
 	@Override
 	public boolean update(long id, PythonTopicDTO obj) {
 		// TODO Auto-generated method stub
@@ -87,6 +132,9 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 		return result;
 	}
 
+	/**
+	 * Lee todos los temas en la base de datos
+	 */
 	@Override
 	public List<PythonTopicDTO> readAll() {
 		// TODO Auto-generated method stub
@@ -99,6 +147,9 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 		return topics;
 	}
 
+	/**
+	 * Busca un tema por su id en la base de datos.
+	 */
 	@Override
 	public PythonTopicDTO findOne(long id) {
 		// TODO Auto-generated method stub
@@ -106,18 +157,34 @@ public class PythonTopicService implements ServiceOperation<PythonTopicDTO> {
 		return find;
 	}
 
+	/**
+	 * Obtiene la lista de temas.
+	 * @return topics
+	 */
 	public List<PythonTopicDTO> getTopics() {
 		return topics;
 	}
 
+	/**
+	 * Establece la lista de temas.
+	 * @param topics
+	 */
 	public void setTopics(List<PythonTopicDTO> topics) {
 		this.topics = topics;
 	}
 
+	/**
+	 * Obtiene el objeto PythonTopicDAO.
+	 * @return pythonDAO
+	 */
 	public PythonTopicDAO getPythonDAO() {
 		return pythonDAO;
 	}
 
+	/**
+	 * Establece el objeto PythonTopicDAO.
+	 * @param pythonDAO
+	 */
 	public void setPythonDAO(PythonTopicDAO pythonDAO) {
 		this.pythonDAO = pythonDAO;
 	}
